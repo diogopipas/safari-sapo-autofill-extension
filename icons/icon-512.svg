@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#0066CC"/>
+  
+  <!-- Document/Form icon -->
+  <rect x="102.4" y="76.8" width="307.2" height="358.4" 
+        fill="white" rx="25.6"/>
+  
+  <!-- Lines representing form fields -->
+  <rect x="153.6" y="143.36" width="204.8" height="25.6" 
+        fill="#0066CC" rx="12.8"/>
+  <rect x="153.6" y="215.04" width="204.8" height="25.6" 
+        fill="#0066CC" rx="12.8"/>
+  <rect x="153.6" y="286.72" width="204.8" height="25.6" 
+        fill="#0066CC" rx="12.8"/>
+  
+  <!-- Checkmark -->
+  <circle cx="384" cy="384" r="76.8" fill="#4CAF50"/>
+  <path d="M 348.16 384 L 373.76 409.6 L 419.84 348.16" 
+        stroke="white" stroke-width="20.48" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

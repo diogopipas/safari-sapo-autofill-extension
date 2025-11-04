@@ -1,0 +1,1069 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1E28F6B02EBA84B900F64AC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E28F6AF2EBA84B900F64AC3 /* AppDelegate.swift */; };
+		1E28F6B22EBA84B900F64AC3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E28F6B12EBA84B900F64AC3 /* SceneDelegate.swift */; };
+		1E28F6B52EBA84B900F64AC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6B32EBA84B900F64AC3 /* LaunchScreen.storyboard */; };
+		1E28F6B82EBA84B900F64AC3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6B62EBA84B900F64AC3 /* Main.storyboard */; };
+		1E28F6C12EBA84B900F64AC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E28F6C02EBA84B900F64AC3 /* AppDelegate.swift */; };
+		1E28F6C42EBA84B900F64AC3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6C22EBA84B900F64AC3 /* Main.storyboard */; };
+		1E28F6CB2EBA84B900F64AC3 /* SAPO Emprego Autofill Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1E28F6CA2EBA84B900F64AC3 /* SAPO Emprego Autofill Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1E28F6D52EBA84B900F64AC3 /* SAPO Emprego Autofill Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1E28F6D42EBA84B900F64AC3 /* SAPO Emprego Autofill Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1E28F6DA2EBA84B900F64AC3 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F69F2EBA84B800F64AC3 /* Main.html */; };
+		1E28F6DB2EBA84B900F64AC3 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F69F2EBA84B800F64AC3 /* Main.html */; };
+		1E28F6DC2EBA84B900F64AC3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6A12EBA84B800F64AC3 /* Icon.png */; };
+		1E28F6DD2EBA84B900F64AC3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6A12EBA84B800F64AC3 /* Icon.png */; };
+		1E28F6DE2EBA84B900F64AC3 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6A22EBA84B800F64AC3 /* Style.css */; };
+		1E28F6DF2EBA84B900F64AC3 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6A22EBA84B800F64AC3 /* Style.css */; };
+		1E28F6E02EBA84B900F64AC3 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6A32EBA84B800F64AC3 /* Script.js */; };
+		1E28F6E12EBA84B900F64AC3 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6A32EBA84B800F64AC3 /* Script.js */; };
+		1E28F6E22EBA84B900F64AC3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E28F6A42EBA84B800F64AC3 /* ViewController.swift */; };
+		1E28F6E32EBA84B900F64AC3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E28F6A42EBA84B800F64AC3 /* ViewController.swift */; };
+		1E28F6E42EBA84B900F64AC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6A52EBA84B900F64AC3 /* Assets.xcassets */; };
+		1E28F6E52EBA84B900F64AC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6A52EBA84B900F64AC3 /* Assets.xcassets */; };
+		1E28F6E62EBA84B900F64AC3 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E28F6A72EBA84B900F64AC3 /* SafariWebExtensionHandler.swift */; };
+		1E28F6E72EBA84B900F64AC3 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E28F6A72EBA84B900F64AC3 /* SafariWebExtensionHandler.swift */; };
+		1E28F7062EBA84BA00F64AC3 /* TESTING-CHECKLIST.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6F92EBA84BA00F64AC3 /* TESTING-CHECKLIST.md */; };
+		1E28F7072EBA84BA00F64AC3 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FA2EBA84BA00F64AC3 /* background.js */; };
+		1E28F7082EBA84BA00F64AC3 /* QUICK-START.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FB2EBA84BA00F64AC3 /* QUICK-START.md */; };
+		1E28F7092EBA84BA00F64AC3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FC2EBA84BA00F64AC3 /* README.md */; };
+		1E28F70A2EBA84BA00F64AC3 /* fileData.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FD2EBA84BA00F64AC3 /* fileData.js */; };
+		1E28F70C2EBA84BA00F64AC3 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FF2EBA84BA00F64AC3 /* icons */; };
+		1E28F70D2EBA84BA00F64AC3 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7002EBA84BA00F64AC3 /* manifest.json */; };
+		1E28F70E2EBA84BA00F64AC3 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7012EBA84BA00F64AC3 /* content.js */; };
+		1E28F70F2EBA84BA00F64AC3 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7022EBA84BA00F64AC3 /* assets */; };
+		1E28F7102EBA84BA00F64AC3 /* INSTALLATION.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7032EBA84BA00F64AC3 /* INSTALLATION.md */; };
+		1E28F7112EBA84BA00F64AC3 /* build-files.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7042EBA84BA00F64AC3 /* build-files.js */; };
+		1E28F7122EBA84BA00F64AC3 /* generate-icons.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7052EBA84BA00F64AC3 /* generate-icons.js */; };
+		1E28F7132EBA84BA00F64AC3 /* TESTING-CHECKLIST.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6F92EBA84BA00F64AC3 /* TESTING-CHECKLIST.md */; };
+		1E28F7142EBA84BA00F64AC3 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FA2EBA84BA00F64AC3 /* background.js */; };
+		1E28F7152EBA84BA00F64AC3 /* QUICK-START.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FB2EBA84BA00F64AC3 /* QUICK-START.md */; };
+		1E28F7162EBA84BA00F64AC3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FC2EBA84BA00F64AC3 /* README.md */; };
+		1E28F7172EBA84BA00F64AC3 /* fileData.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FD2EBA84BA00F64AC3 /* fileData.js */; };
+		1E28F7192EBA84BA00F64AC3 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FF2EBA84BA00F64AC3 /* icons */; };
+		1E28F71A2EBA84BA00F64AC3 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7002EBA84BA00F64AC3 /* manifest.json */; };
+		1E28F71B2EBA84BA00F64AC3 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7012EBA84BA00F64AC3 /* content.js */; };
+		1E28F71C2EBA84BA00F64AC3 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7022EBA84BA00F64AC3 /* assets */; };
+		1E28F71D2EBA84BA00F64AC3 /* INSTALLATION.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7032EBA84BA00F64AC3 /* INSTALLATION.md */; };
+		1E28F71E2EBA84BA00F64AC3 /* build-files.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7042EBA84BA00F64AC3 /* build-files.js */; };
+		1E28F71F2EBA84BA00F64AC3 /* generate-icons.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7052EBA84BA00F64AC3 /* generate-icons.js */; };
+		1E640F812EBA853E005B9D3F /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 1E640F7F2EBA853E005B9D3F /* Style.css */; };
+		1E640F822EBA853E005B9D3F /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E640F7E2EBA853E005B9D3F /* Script.js */; };
+		1E640F832EBA853E005B9D3F /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E640F7B2EBA853E005B9D3F /* Icon.png */; };
+		1E640F842EBA853E005B9D3F /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 1E640F7D2EBA853E005B9D3F /* Main.html */; };
+		1E640F852EBA853E005B9D3F /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 1E640F7F2EBA853E005B9D3F /* Style.css */; };
+		1E640F862EBA853E005B9D3F /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E640F7E2EBA853E005B9D3F /* Script.js */; };
+		1E640F872EBA853E005B9D3F /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E640F7B2EBA853E005B9D3F /* Icon.png */; };
+		1E640F882EBA853E005B9D3F /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 1E640F7D2EBA853E005B9D3F /* Main.html */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1E28F6CC2EBA84B900F64AC3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1E28F6992EBA84B800F64AC3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E28F6C92EBA84B900F64AC3;
+			remoteInfo = "SAPO Emprego Autofill Extension (iOS)";
+		};
+		1E28F6D62EBA84B900F64AC3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1E28F6992EBA84B800F64AC3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E28F6D32EBA84B900F64AC3;
+			remoteInfo = "SAPO Emprego Autofill Extension (macOS)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1E28F6ED2EBA84B900F64AC3 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1E28F6CB2EBA84B900F64AC3 /* SAPO Emprego Autofill Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E28F6F42EBA84B900F64AC3 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1E28F6D52EBA84B900F64AC3 /* SAPO Emprego Autofill Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1E28F6A02EBA84B800F64AC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
+		1E28F6A12EBA84B800F64AC3 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		1E28F6A22EBA84B800F64AC3 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		1E28F6A32EBA84B800F64AC3 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		1E28F6A42EBA84B800F64AC3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1E28F6A52EBA84B900F64AC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1E28F6A72EBA84B900F64AC3 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		1E28F6AC2EBA84B900F64AC3 /* SAPO Emprego Autofill.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SAPO Emprego Autofill.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E28F6AF2EBA84B900F64AC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1E28F6B12EBA84B900F64AC3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		1E28F6B42EBA84B900F64AC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1E28F6B72EBA84B900F64AC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1E28F6B92EBA84B900F64AC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E28F6BE2EBA84B900F64AC3 /* SAPO Emprego Autofill.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SAPO Emprego Autofill.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E28F6C02EBA84B900F64AC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1E28F6C32EBA84B900F64AC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1E28F6C52EBA84B900F64AC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E28F6CA2EBA84B900F64AC3 /* SAPO Emprego Autofill Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SAPO Emprego Autofill Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E28F6CF2EBA84B900F64AC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E28F6D42EBA84B900F64AC3 /* SAPO Emprego Autofill Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SAPO Emprego Autofill Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E28F6D92EBA84B900F64AC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E28F6F92EBA84BA00F64AC3 /* TESTING-CHECKLIST.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "TESTING-CHECKLIST.md"; path = "../../TESTING-CHECKLIST.md"; sourceTree = "<group>"; };
+		1E28F6FA2EBA84BA00F64AC3 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../background.js; sourceTree = "<group>"; };
+		1E28F6FB2EBA84BA00F64AC3 /* QUICK-START.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "QUICK-START.md"; path = "../../QUICK-START.md"; sourceTree = "<group>"; };
+		1E28F6FC2EBA84BA00F64AC3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
+		1E28F6FD2EBA84BA00F64AC3 /* fileData.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = fileData.js; path = ../../fileData.js; sourceTree = "<group>"; };
+		1E28F6FF2EBA84BA00F64AC3 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../icons; sourceTree = "<group>"; };
+		1E28F7002EBA84BA00F64AC3 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../manifest.json; sourceTree = "<group>"; };
+		1E28F7012EBA84BA00F64AC3 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = content.js; path = ../../content.js; sourceTree = "<group>"; };
+		1E28F7022EBA84BA00F64AC3 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../../assets; sourceTree = "<group>"; };
+		1E28F7032EBA84BA00F64AC3 /* INSTALLATION.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = INSTALLATION.md; path = ../../INSTALLATION.md; sourceTree = "<group>"; };
+		1E28F7042EBA84BA00F64AC3 /* build-files.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "build-files.js"; path = "../../build-files.js"; sourceTree = "<group>"; };
+		1E28F7052EBA84BA00F64AC3 /* generate-icons.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "generate-icons.js"; path = "../../generate-icons.js"; sourceTree = "<group>"; };
+		1E640F7B2EBA853E005B9D3F /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		1E640F7C2EBA853E005B9D3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
+		1E640F7E2EBA853E005B9D3F /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		1E640F7F2EBA853E005B9D3F /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1E28F6A92EBA84B900F64AC3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E28F6BB2EBA84B900F64AC3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E28F6C72EBA84B900F64AC3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E28F6D12EBA84B900F64AC3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1E28F6982EBA84B800F64AC3 = {
+			isa = PBXGroup;
+			children = (
+				1E28F69D2EBA84B800F64AC3 /* Shared (App) */,
+				1E28F6A62EBA84B900F64AC3 /* Shared (Extension) */,
+				1E28F6AE2EBA84B900F64AC3 /* iOS (App) */,
+				1E28F6BF2EBA84B900F64AC3 /* macOS (App) */,
+				1E28F6CE2EBA84B900F64AC3 /* iOS (Extension) */,
+				1E28F6D82EBA84B900F64AC3 /* macOS (Extension) */,
+				1E28F6AD2EBA84B900F64AC3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1E28F69D2EBA84B800F64AC3 /* Shared (App) */ = {
+			isa = PBXGroup;
+			children = (
+				1E640F802EBA853E005B9D3F /* Resources */,
+				1E28F6A42EBA84B800F64AC3 /* ViewController.swift */,
+				1E28F6A52EBA84B900F64AC3 /* Assets.xcassets */,
+				1E28F69E2EBA84B800F64AC3 /* Resources */,
+			);
+			path = "Shared (App)";
+			sourceTree = "<group>";
+		};
+		1E28F69E2EBA84B800F64AC3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1E28F69F2EBA84B800F64AC3 /* Main.html */,
+				1E28F6A12EBA84B800F64AC3 /* Icon.png */,
+				1E28F6A22EBA84B800F64AC3 /* Style.css */,
+				1E28F6A32EBA84B800F64AC3 /* Script.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		1E28F6A62EBA84B900F64AC3 /* Shared (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				1E28F6F82EBA84BA00F64AC3 /* Resources */,
+				1E28F6A72EBA84B900F64AC3 /* SafariWebExtensionHandler.swift */,
+			);
+			path = "Shared (Extension)";
+			sourceTree = "<group>";
+		};
+		1E28F6AD2EBA84B900F64AC3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1E28F6AC2EBA84B900F64AC3 /* SAPO Emprego Autofill.app */,
+				1E28F6BE2EBA84B900F64AC3 /* SAPO Emprego Autofill.app */,
+				1E28F6CA2EBA84B900F64AC3 /* SAPO Emprego Autofill Extension.appex */,
+				1E28F6D42EBA84B900F64AC3 /* SAPO Emprego Autofill Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1E28F6AE2EBA84B900F64AC3 /* iOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				1E28F6AF2EBA84B900F64AC3 /* AppDelegate.swift */,
+				1E28F6B12EBA84B900F64AC3 /* SceneDelegate.swift */,
+				1E28F6B32EBA84B900F64AC3 /* LaunchScreen.storyboard */,
+				1E28F6B62EBA84B900F64AC3 /* Main.storyboard */,
+				1E28F6B92EBA84B900F64AC3 /* Info.plist */,
+			);
+			path = "iOS (App)";
+			sourceTree = "<group>";
+		};
+		1E28F6BF2EBA84B900F64AC3 /* macOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				1E28F6C02EBA84B900F64AC3 /* AppDelegate.swift */,
+				1E28F6C22EBA84B900F64AC3 /* Main.storyboard */,
+				1E28F6C52EBA84B900F64AC3 /* Info.plist */,
+			);
+			path = "macOS (App)";
+			sourceTree = "<group>";
+		};
+		1E28F6CE2EBA84B900F64AC3 /* iOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				1E28F6CF2EBA84B900F64AC3 /* Info.plist */,
+			);
+			path = "iOS (Extension)";
+			sourceTree = "<group>";
+		};
+		1E28F6D82EBA84B900F64AC3 /* macOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				1E28F6D92EBA84B900F64AC3 /* Info.plist */,
+			);
+			path = "macOS (Extension)";
+			sourceTree = "<group>";
+		};
+		1E28F6F82EBA84BA00F64AC3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1E28F6F92EBA84BA00F64AC3 /* TESTING-CHECKLIST.md */,
+				1E28F6FA2EBA84BA00F64AC3 /* background.js */,
+				1E28F6FB2EBA84BA00F64AC3 /* QUICK-START.md */,
+				1E28F6FC2EBA84BA00F64AC3 /* README.md */,
+				1E28F6FD2EBA84BA00F64AC3 /* fileData.js */,
+				1E28F6FF2EBA84BA00F64AC3 /* icons */,
+				1E28F7002EBA84BA00F64AC3 /* manifest.json */,
+				1E28F7012EBA84BA00F64AC3 /* content.js */,
+				1E28F7022EBA84BA00F64AC3 /* assets */,
+				1E28F7032EBA84BA00F64AC3 /* INSTALLATION.md */,
+				1E28F7042EBA84BA00F64AC3 /* build-files.js */,
+				1E28F7052EBA84BA00F64AC3 /* generate-icons.js */,
+			);
+			name = Resources;
+			path = "Shared (Extension)";
+			sourceTree = SOURCE_ROOT;
+		};
+		1E640F802EBA853E005B9D3F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1E640F7B2EBA853E005B9D3F /* Icon.png */,
+				1E640F7D2EBA853E005B9D3F /* Main.html */,
+				1E640F7E2EBA853E005B9D3F /* Script.js */,
+				1E640F7F2EBA853E005B9D3F /* Style.css */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1E28F6AB2EBA84B900F64AC3 /* SAPO Emprego Autofill (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E28F6EE2EBA84B900F64AC3 /* Build configuration list for PBXNativeTarget "SAPO Emprego Autofill (iOS)" */;
+			buildPhases = (
+				1E28F6A82EBA84B900F64AC3 /* Sources */,
+				1E28F6A92EBA84B900F64AC3 /* Frameworks */,
+				1E28F6AA2EBA84B900F64AC3 /* Resources */,
+				1E28F6ED2EBA84B900F64AC3 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1E28F6CD2EBA84B900F64AC3 /* PBXTargetDependency */,
+			);
+			name = "SAPO Emprego Autofill (iOS)";
+			packageProductDependencies = (
+			);
+			productName = "SAPO Emprego Autofill (iOS)";
+			productReference = 1E28F6AC2EBA84B900F64AC3 /* SAPO Emprego Autofill.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1E28F6BD2EBA84B900F64AC3 /* SAPO Emprego Autofill (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E28F6F52EBA84B900F64AC3 /* Build configuration list for PBXNativeTarget "SAPO Emprego Autofill (macOS)" */;
+			buildPhases = (
+				1E28F6BA2EBA84B900F64AC3 /* Sources */,
+				1E28F6BB2EBA84B900F64AC3 /* Frameworks */,
+				1E28F6BC2EBA84B900F64AC3 /* Resources */,
+				1E28F6F42EBA84B900F64AC3 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1E28F6D72EBA84B900F64AC3 /* PBXTargetDependency */,
+			);
+			name = "SAPO Emprego Autofill (macOS)";
+			packageProductDependencies = (
+			);
+			productName = "SAPO Emprego Autofill (macOS)";
+			productReference = 1E28F6BE2EBA84B900F64AC3 /* SAPO Emprego Autofill.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1E28F6C92EBA84B900F64AC3 /* SAPO Emprego Autofill Extension (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E28F6EA2EBA84B900F64AC3 /* Build configuration list for PBXNativeTarget "SAPO Emprego Autofill Extension (iOS)" */;
+			buildPhases = (
+				1E28F6C62EBA84B900F64AC3 /* Sources */,
+				1E28F6C72EBA84B900F64AC3 /* Frameworks */,
+				1E28F6C82EBA84B900F64AC3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SAPO Emprego Autofill Extension (iOS)";
+			packageProductDependencies = (
+			);
+			productName = "SAPO Emprego Autofill Extension (iOS)";
+			productReference = 1E28F6CA2EBA84B900F64AC3 /* SAPO Emprego Autofill Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		1E28F6D32EBA84B900F64AC3 /* SAPO Emprego Autofill Extension (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E28F6F12EBA84B900F64AC3 /* Build configuration list for PBXNativeTarget "SAPO Emprego Autofill Extension (macOS)" */;
+			buildPhases = (
+				1E28F6D02EBA84B900F64AC3 /* Sources */,
+				1E28F6D12EBA84B900F64AC3 /* Frameworks */,
+				1E28F6D22EBA84B900F64AC3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SAPO Emprego Autofill Extension (macOS)";
+			packageProductDependencies = (
+			);
+			productName = "SAPO Emprego Autofill Extension (macOS)";
+			productReference = 1E28F6D42EBA84B900F64AC3 /* SAPO Emprego Autofill Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1E28F6992EBA84B800F64AC3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					1E28F6AB2EBA84B900F64AC3 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					1E28F6BD2EBA84B900F64AC3 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					1E28F6C92EBA84B900F64AC3 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					1E28F6D32EBA84B900F64AC3 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 1E28F69C2EBA84B800F64AC3 /* Build configuration list for PBXProject "SAPO Emprego Autofill" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1E28F6982EBA84B800F64AC3;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 1E28F6AD2EBA84B900F64AC3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1E28F6AB2EBA84B900F64AC3 /* SAPO Emprego Autofill (iOS) */,
+				1E28F6BD2EBA84B900F64AC3 /* SAPO Emprego Autofill (macOS) */,
+				1E28F6C92EBA84B900F64AC3 /* SAPO Emprego Autofill Extension (iOS) */,
+				1E28F6D32EBA84B900F64AC3 /* SAPO Emprego Autofill Extension (macOS) */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1E28F6AA2EBA84B900F64AC3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E28F6DC2EBA84B900F64AC3 /* Icon.png in Resources */,
+				1E28F6B52EBA84B900F64AC3 /* LaunchScreen.storyboard in Resources */,
+				1E28F6DA2EBA84B900F64AC3 /* Main.html in Resources */,
+				1E28F6E02EBA84B900F64AC3 /* Script.js in Resources */,
+				1E28F6E42EBA84B900F64AC3 /* Assets.xcassets in Resources */,
+				1E28F6B82EBA84B900F64AC3 /* Main.storyboard in Resources */,
+				1E28F6DE2EBA84B900F64AC3 /* Style.css in Resources */,
+				1E640F812EBA853E005B9D3F /* Style.css in Resources */,
+				1E640F822EBA853E005B9D3F /* Script.js in Resources */,
+				1E640F832EBA853E005B9D3F /* Icon.png in Resources */,
+				1E640F842EBA853E005B9D3F /* Main.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E28F6BC2EBA84B900F64AC3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E28F6DD2EBA84B900F64AC3 /* Icon.png in Resources */,
+				1E28F6DF2EBA84B900F64AC3 /* Style.css in Resources */,
+				1E28F6C42EBA84B900F64AC3 /* Main.storyboard in Resources */,
+				1E28F6E12EBA84B900F64AC3 /* Script.js in Resources */,
+				1E28F6E52EBA84B900F64AC3 /* Assets.xcassets in Resources */,
+				1E28F6DB2EBA84B900F64AC3 /* Main.html in Resources */,
+				1E640F852EBA853E005B9D3F /* Style.css in Resources */,
+				1E640F862EBA853E005B9D3F /* Script.js in Resources */,
+				1E640F872EBA853E005B9D3F /* Icon.png in Resources */,
+				1E640F882EBA853E005B9D3F /* Main.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E28F6C82EBA84B900F64AC3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E28F71D2EBA84BA00F64AC3 /* INSTALLATION.md in Resources */,
+				1E28F71E2EBA84BA00F64AC3 /* build-files.js in Resources */,
+				1E28F7152EBA84BA00F64AC3 /* QUICK-START.md in Resources */,
+				1E28F7142EBA84BA00F64AC3 /* background.js in Resources */,
+				1E28F7162EBA84BA00F64AC3 /* README.md in Resources */,
+				1E28F7172EBA84BA00F64AC3 /* fileData.js in Resources */,
+				1E28F71A2EBA84BA00F64AC3 /* manifest.json in Resources */,
+				1E28F71C2EBA84BA00F64AC3 /* assets in Resources */,
+				1E28F7132EBA84BA00F64AC3 /* TESTING-CHECKLIST.md in Resources */,
+				1E28F71B2EBA84BA00F64AC3 /* content.js in Resources */,
+				1E28F71F2EBA84BA00F64AC3 /* generate-icons.js in Resources */,
+				1E28F7192EBA84BA00F64AC3 /* icons in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E28F6D22EBA84B900F64AC3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E28F7102EBA84BA00F64AC3 /* INSTALLATION.md in Resources */,
+				1E28F7112EBA84BA00F64AC3 /* build-files.js in Resources */,
+				1E28F7082EBA84BA00F64AC3 /* QUICK-START.md in Resources */,
+				1E28F7072EBA84BA00F64AC3 /* background.js in Resources */,
+				1E28F7092EBA84BA00F64AC3 /* README.md in Resources */,
+				1E28F70A2EBA84BA00F64AC3 /* fileData.js in Resources */,
+				1E28F70D2EBA84BA00F64AC3 /* manifest.json in Resources */,
+				1E28F70F2EBA84BA00F64AC3 /* assets in Resources */,
+				1E28F7062EBA84BA00F64AC3 /* TESTING-CHECKLIST.md in Resources */,
+				1E28F70E2EBA84BA00F64AC3 /* content.js in Resources */,
+				1E28F7122EBA84BA00F64AC3 /* generate-icons.js in Resources */,
+				1E28F70C2EBA84BA00F64AC3 /* icons in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1E28F6A82EBA84B900F64AC3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E28F6E22EBA84B900F64AC3 /* ViewController.swift in Sources */,
+				1E28F6B02EBA84B900F64AC3 /* AppDelegate.swift in Sources */,
+				1E28F6B22EBA84B900F64AC3 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E28F6BA2EBA84B900F64AC3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E28F6E32EBA84B900F64AC3 /* ViewController.swift in Sources */,
+				1E28F6C12EBA84B900F64AC3 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E28F6C62EBA84B900F64AC3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E28F6E62EBA84B900F64AC3 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E28F6D02EBA84B900F64AC3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E28F6E72EBA84B900F64AC3 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1E28F6CD2EBA84B900F64AC3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1E28F6C92EBA84B900F64AC3 /* SAPO Emprego Autofill Extension (iOS) */;
+			targetProxy = 1E28F6CC2EBA84B900F64AC3 /* PBXContainerItemProxy */;
+		};
+		1E28F6D72EBA84B900F64AC3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1E28F6D32EBA84B900F64AC3 /* SAPO Emprego Autofill Extension (macOS) */;
+			targetProxy = 1E28F6D62EBA84B900F64AC3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1E28F69F2EBA84B800F64AC3 /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E28F6A02EBA84B800F64AC3 /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		1E28F6B32EBA84B900F64AC3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E28F6B42EBA84B900F64AC3 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		1E28F6B62EBA84B900F64AC3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E28F6B72EBA84B900F64AC3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1E28F6C22EBA84B900F64AC3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E28F6C32EBA84B900F64AC3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1E640F7D2EBA853E005B9D3F /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E640F7C2EBA853E005B9D3F /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1E28F6E82EBA84B900F64AC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1E28F6E92EBA84B900F64AC3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		1E28F6EB2EBA84B900F64AC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SAPO Emprego Autofill Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.SAPO-Emprego-Autofill.Extension";
+				PRODUCT_NAME = "SAPO Emprego Autofill Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1E28F6EC2EBA84B900F64AC3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SAPO Emprego Autofill Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.SAPO-Emprego-Autofill.Extension";
+				PRODUCT_NAME = "SAPO Emprego Autofill Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1E28F6EF2EBA84B900F64AC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SAPO Emprego Autofill";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.SAPO-Emprego-Autofill";
+				PRODUCT_NAME = "SAPO Emprego Autofill";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1E28F6F02EBA84B900F64AC3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SAPO Emprego Autofill";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.SAPO-Emprego-Autofill";
+				PRODUCT_NAME = "SAPO Emprego Autofill";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1E28F6F22EBA84B900F64AC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SAPO Emprego Autofill Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.SAPO-Emprego-Autofill.Extension";
+				PRODUCT_NAME = "SAPO Emprego Autofill Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1E28F6F32EBA84B900F64AC3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SAPO Emprego Autofill Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.SAPO-Emprego-Autofill.Extension";
+				PRODUCT_NAME = "SAPO Emprego Autofill Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		1E28F6F62EBA84B900F64AC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SAPO Emprego Autofill";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.SAPO-Emprego-Autofill";
+				PRODUCT_NAME = "SAPO Emprego Autofill";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1E28F6F72EBA84B900F64AC3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SAPO Emprego Autofill";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.SAPO-Emprego-Autofill";
+				PRODUCT_NAME = "SAPO Emprego Autofill";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1E28F69C2EBA84B800F64AC3 /* Build configuration list for PBXProject "SAPO Emprego Autofill" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E28F6E82EBA84B900F64AC3 /* Debug */,
+				1E28F6E92EBA84B900F64AC3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E28F6EA2EBA84B900F64AC3 /* Build configuration list for PBXNativeTarget "SAPO Emprego Autofill Extension (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E28F6EB2EBA84B900F64AC3 /* Debug */,
+				1E28F6EC2EBA84B900F64AC3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E28F6EE2EBA84B900F64AC3 /* Build configuration list for PBXNativeTarget "SAPO Emprego Autofill (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E28F6EF2EBA84B900F64AC3 /* Debug */,
+				1E28F6F02EBA84B900F64AC3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E28F6F12EBA84B900F64AC3 /* Build configuration list for PBXNativeTarget "SAPO Emprego Autofill Extension (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E28F6F22EBA84B900F64AC3 /* Debug */,
+				1E28F6F32EBA84B900F64AC3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E28F6F52EBA84B900F64AC3 /* Build configuration list for PBXNativeTarget "SAPO Emprego Autofill (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E28F6F62EBA84B900F64AC3 /* Debug */,
+				1E28F6F72EBA84B900F64AC3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1E28F6992EBA84B800F64AC3 /* Project object */;
+}
