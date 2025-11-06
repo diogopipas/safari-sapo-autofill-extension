@@ -157,9 +157,155 @@ async function uploadFile(fileType, fileData) {
     fileInput.dispatchEvent(new Event('input', { bubbles: true }));
     
     console.log(`✓ Uploaded ${fileType} file: ${fileData.name}`);
+    
+    // If this is a photo upload, wait for and handle the OK button in the popup
+    if (fileType === 'photo') {
+      await waitAndClickOKButton();
+    }
   } catch (error) {
     console.error(`Error uploading ${fileType}:`, error);
   }
+}
+
+async function waitAndClickOKButton() {
+  console.log('Waiting for photo upload popup OK button...');
+  
+  return new Promise((resolve) => {
+    let attempts = 0;
+    const maxAttempts = 100; // 100 attempts * 100ms = 10 seconds
+    let observer = null;
+    let okButtonFoundTime = null;
+    const waitAfterButtonFound = 100; // Wait 0.1 seconds after finding button for cropper to load
+    
+    // Function to search for and click the OK button
+    const searchAndClick = () => {
+      // Look for all buttons on the page
+      const allButtons = document.querySelectorAll('button, input[type="button"], input[type="submit"], [role="button"]');
+      
+      // Log all buttons for debugging (only on first attempt)
+      if (attempts === 0 && allButtons.length > 0) {
+        console.log(`Found ${allButtons.length} buttons on page`);
+      }
+      
+      // Look for OK button - try exact text match first
+      let okButton = null;
+      
+      // Strategy 1: Find button with text exactly "OK" (case insensitive)
+      for (const button of allButtons) {
+        const text = button.textContent?.trim().toUpperCase();
+        if (text === 'OK') {
+          okButton = button;
+          if (!okButtonFoundTime) {
+            okButtonFoundTime = Date.now();
+            console.log('Found OK button - waiting for cropper to load before clicking...');
+          }
+          break;
+        }
+      }
+      
+      // Strategy 2: Try other selectors if not found
+      if (!okButton) {
+        okButton = findButtonByText('OK') ||
+                   findButtonByText('ok') ||
+                   // Look for buttons in modal/popup/dialog containers
+                   document.querySelector('[role="dialog"] button:not([class*="cancel"]):not([class*="cancelar"])') ||
+                   document.querySelector('.modal button:not([class*="cancel"]):not([class*="cancelar"])') ||
+                   document.querySelector('.popup button:not([class*="cancel"]):not([class*="cancelar"])') ||
+                   // Look for primary/confirm buttons
+                   document.querySelector('button[class*="primary"]') ||
+                   document.querySelector('button[class*="confirm"]') ||
+                   document.querySelector('button[class*="accept"]') ||
+                   // Try finding the rightmost button in a dialog (OK is usually on the right)
+                   Array.from(document.querySelectorAll('[role="dialog"] button, .modal button, .popup button'))
+                     .filter(btn => !btn.textContent?.includes('CANCELAR'))
+                     .pop();
+        
+        if (okButton && !okButtonFoundTime) {
+          okButtonFoundTime = Date.now();
+          console.log('Found OK button (via fallback) - waiting for cropper to load before clicking...');
+        }
+      }
+      
+      // If we found the button and enough time has passed, click it
+      if (okButton && okButtonFoundTime) {
+        const timeSinceFound = Date.now() - okButtonFoundTime;
+        
+        if (timeSinceFound >= waitAfterButtonFound) {
+          console.log('✓ Cropper should be ready - clicking OK button now...', okButton);
+          
+          // Stop the observer if it's running
+          if (observer) {
+            observer.disconnect();
+          }
+          
+          // Try multiple click methods to ensure it works
+          okButton.click();
+          okButton.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+          okButton.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, cancelable: true }));
+          okButton.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, cancelable: true }));
+          
+          // Wait a moment for the click to process
+          setTimeout(() => resolve(), 500);
+          return true;
+        } else {
+          // Still waiting
+          const remainingWait = ((waitAfterButtonFound - timeSinceFound) / 1000).toFixed(1);
+          if (Math.floor(timeSinceFound / 500) !== Math.floor((timeSinceFound - 100) / 500)) {
+            console.log(`Waiting ${remainingWait}s more for cropper...`);
+          }
+        }
+      }
+      
+      return false;
+    };
+    
+    // Set up MutationObserver to watch for popup appearing
+    observer = new MutationObserver((mutations) => {
+      if (searchAndClick()) {
+        observer.disconnect();
+      }
+    });
+    
+    // Start observing the document for changes
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['style', 'class']
+    });
+    
+    // Also poll regularly as a backup
+    const intervalId = setInterval(() => {
+      attempts++;
+      
+      if (searchAndClick()) {
+        clearInterval(intervalId);
+        observer.disconnect();
+        return;
+      }
+      
+      // Log progress every second (only if we haven't found the button yet)
+      if (attempts % 10 === 0 && !okButtonFoundTime) {
+        console.log(`Still waiting for OK button... (${attempts / 10}s elapsed)`);
+      }
+      
+      // Timeout after max attempts
+      if (attempts >= maxAttempts) {
+        clearInterval(intervalId);
+        observer.disconnect();
+        console.warn('⚠ OK button not found after 10 seconds - popup may not have appeared or has different structure');
+        console.log('All buttons on page:', Array.from(document.querySelectorAll('button')).map(b => ({
+          text: b.textContent?.trim(),
+          classes: b.className,
+          id: b.id
+        })));
+        resolve();
+      }
+    }, 100);
+    
+    // Do an immediate check
+    searchAndClick();
+  });
 }
 
 function findFileInputByLabel(labelText) {
@@ -179,32 +325,255 @@ function findFileInputByLabel(labelText) {
 }
 
 function checkTermsCheckbox() {
-  // Find terms checkbox by various methods
-  const checkbox = document.querySelector('input[type="checkbox"]') ||
-                   findCheckboxByText('Termos e Condições') ||
-                   findCheckboxByText('aceito');
+  console.log('Looking for terms and conditions checkbox...');
   
-  if (checkbox && !checkbox.checked) {
-    checkbox.checked = true;
-    checkbox.dispatchEvent(new Event('change', { bubbles: true }));
-    checkbox.dispatchEvent(new Event('click', { bubbles: true }));
-    console.log('✓ Checked terms and conditions');
-  } else if (checkbox && checkbox.checked) {
-    console.log('✓ Terms already checked');
+  // Try multiple strategies to find the checkbox
+  let checkbox = findCheckboxByText('Termos e Condições') ||
+                 findCheckboxByText('aceito') ||
+                 findCheckboxByText('autorizo') ||
+                 document.querySelector('input[type="checkbox"][name*="termos"]') ||
+                 document.querySelector('input[type="checkbox"][id*="termos"]') ||
+                 document.querySelector('input[type="checkbox"]');
+  
+  if (checkbox) {
+    console.log('Checkbox element found:', checkbox);
+    console.log('Checkbox ID:', checkbox.id, 'Name:', checkbox.name, 'Checked:', checkbox.checked);
+    console.log('Checkbox visible:', checkbox.offsetParent !== null);
+    
+    // Check if the checkbox is hidden (common with custom checkboxes)
+    const isHidden = checkbox.offsetParent === null;
+    
+    if (isHidden) {
+      console.log('⚠ Checkbox is hidden - looking for visible custom checkbox element...');
+      
+      // Find visible clickable elements near the hidden checkbox
+      // Custom checkboxes are usually siblings or in the parent/label
+      const parent = checkbox.parentElement;
+      const label = document.querySelector(`label[for="${checkbox.id}"]`) || checkbox.closest('label');
+      
+      console.log('Parent element:', parent);
+      console.log('Associated label:', label);
+      
+      // Look for visible clickable elements
+      let clickableElement = null;
+      
+      // Strategy 1: Look for siblings of the hidden checkbox
+      if (parent) {
+        const siblings = Array.from(parent.children).filter(el => el !== checkbox);
+        console.log('Siblings:', siblings);
+        
+        for (const sibling of siblings) {
+          if (sibling.offsetParent !== null) { // is visible
+            clickableElement = sibling;
+            console.log('Found visible sibling to click:', sibling);
+            break;
+          }
+        }
+      }
+      
+      // Strategy 2: Click the label
+      if (!clickableElement && label && label.offsetParent !== null) {
+        clickableElement = label;
+        console.log('Using label as clickable element');
+      }
+      
+      // Strategy 3: Click the parent
+      if (!clickableElement && parent && parent.offsetParent !== null) {
+        clickableElement = parent;
+        console.log('Using parent as clickable element');
+      }
+      
+      // If we found a visible element, click it
+      if (clickableElement) {
+        console.log('Clicking visible element:', clickableElement);
+        
+        // First, set focus on the checkbox/element
+        try {
+          checkbox.focus();
+        } catch (e) {
+          // Focus might fail on hidden elements, that's ok
+        }
+        
+        // Try to click and dispatch comprehensive events to trigger ANY framework
+        
+        // Dispatch pointer/mouse events first (for modern frameworks)
+        ['pointerdown', 'mousedown', 'pointerup', 'mouseup', 'click'].forEach(eventType => {
+          clickableElement.dispatchEvent(new MouseEvent(eventType, {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+            detail: 1
+          }));
+        });
+        
+        // Also click the element directly
+        clickableElement.click();
+        
+        // Try clicking the label if we have it
+        if (label && label !== clickableElement) {
+          label.click();
+          ['pointerdown', 'mousedown', 'pointerup', 'mouseup', 'click'].forEach(eventType => {
+            label.dispatchEvent(new MouseEvent(eventType, {
+              bubbles: true,
+              cancelable: true,
+              view: window,
+              detail: 1
+            }));
+          });
+        }
+        
+        // Force the checkbox state and dispatch all relevant events
+        checkbox.checked = true;
+        ['change', 'input', 'click'].forEach(eventType => {
+          checkbox.dispatchEvent(new Event(eventType, { bubbles: true }));
+        });
+        
+        // Dispatch focus events
+        ['focus', 'focusin'].forEach(eventType => {
+          checkbox.dispatchEvent(new FocusEvent(eventType, { bubbles: true }));
+        });
+        
+        // Check if it worked
+        setTimeout(() => {
+          if (checkbox.checked) {
+            console.log('✓ Checkbox is NOW checked via visible element!');
+          } else {
+            console.warn('✗ Checkbox still not checked after all attempts');
+            console.log('Checkbox state:', {
+              checked: checkbox.checked,
+              disabled: checkbox.disabled,
+              value: checkbox.value,
+              computed_style: window.getComputedStyle(checkbox).display
+            });
+          }
+        }, 100);
+      } else {
+        console.warn('Could not find visible element to click');
+        // Try clicking everything we can find
+        if (label) {
+          label.click();
+          // Dispatch comprehensive events on label
+          ['pointerdown', 'mousedown', 'pointerup', 'mouseup', 'click'].forEach(eventType => {
+            label.dispatchEvent(new MouseEvent(eventType, {
+              bubbles: true,
+              cancelable: true,
+              view: window
+            }));
+          });
+        }
+        if (parent) {
+          parent.click();
+        }
+        
+        // Force checkbox state
+        checkbox.checked = true;
+        ['change', 'input', 'click'].forEach(eventType => {
+          checkbox.dispatchEvent(new Event(eventType, { bubbles: true }));
+        });
+      }
+      
+    } else {
+      // Checkbox is visible, use direct methods
+      console.log('Checkbox is visible - clicking directly');
+      
+      // First try focusing
+      try {
+        checkbox.focus();
+      } catch (e) {
+        console.log('Could not focus checkbox:', e);
+      }
+      
+      // Dispatch pointer events first
+      ['pointerdown', 'mousedown', 'pointerup', 'mouseup'].forEach(eventType => {
+        checkbox.dispatchEvent(new MouseEvent(eventType, {
+          bubbles: true,
+          cancelable: true,
+          view: window
+        }));
+      });
+      
+      // Click it
+      checkbox.click();
+      
+      // Set checked state
+      checkbox.checked = true;
+      
+      // Dispatch state change events
+      ['change', 'input', 'click'].forEach(eventType => {
+        checkbox.dispatchEvent(new Event(eventType, { bubbles: true }));
+      });
+      
+      setTimeout(() => {
+        console.log('Checkbox checked:', checkbox.checked);
+        if (!checkbox.checked) {
+          console.warn('Checkbox visible but still not checked!');
+        }
+      }, 100);
+    }
+    
   } else {
     console.warn('✗ Could not find terms checkbox');
   }
 }
 
 function findCheckboxByText(text) {
-  // Find checkbox near text containing the search term
-  const elements = Array.from(document.querySelectorAll('*'));
-  const element = elements.find(el => 
-    el.textContent.includes(text) && 
-    el.querySelector('input[type="checkbox"]')
-  );
+  // Strategy: Find checkbox that's specifically associated with the text
+  // We need to be more careful to avoid finding checkboxes that just happen to be
+  // in a container that has the text somewhere
   
-  return element?.querySelector('input[type="checkbox"]');
+  const allElements = Array.from(document.querySelectorAll('*'));
+  
+  for (const element of allElements) {
+    // Skip if element doesn't contain the text
+    if (!element.textContent.includes(text)) continue;
+    
+    // Skip if the element is too large (likely a container)
+    const directText = Array.from(element.childNodes)
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent.trim())
+      .join(' ');
+    
+    // Only consider if this element itself (not just descendants) contains the text
+    if (!directText.includes(text)) continue;
+    
+    console.log(`Element with direct text "${text}":`, element, 'Text:', directText);
+    
+    // Look for checkbox within this specific element (not descendants)
+    const directCheckbox = Array.from(element.children).find(
+      child => child.tagName === 'INPUT' && child.type === 'checkbox'
+    );
+    if (directCheckbox) {
+      console.log(`Found checkbox as direct child of element with text: "${text}"`);
+      return directCheckbox;
+    }
+    
+    // Look for checkbox as previous sibling
+    const prevSibling = element.previousElementSibling;
+    if (prevSibling && prevSibling.tagName === 'INPUT' && prevSibling.type === 'checkbox') {
+      console.log(`Found checkbox as previous sibling of text: "${text}"`);
+      return prevSibling;
+    }
+    
+    // Look for checkbox as next sibling
+    const nextSibling = element.nextElementSibling;
+    if (nextSibling && nextSibling.tagName === 'INPUT' && nextSibling.type === 'checkbox') {
+      console.log(`Found checkbox as next sibling of text: "${text}"`);
+      return nextSibling;
+    }
+    
+    // Look in parent's direct children (siblings)
+    if (element.parentElement) {
+      const parentCheckbox = Array.from(element.parentElement.children).find(
+        child => child.tagName === 'INPUT' && child.type === 'checkbox'
+      );
+      if (parentCheckbox) {
+        console.log(`Found checkbox as sibling in parent of text: "${text}"`);
+        return parentCheckbox;
+      }
+    }
+  }
+  
+  return null;
 }
 
 function submitForm() {
@@ -240,6 +609,22 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function base64ToFile(base64String, filename, mimeType) {
+  // Remove data URL prefix if present
+  const base64Data = base64String.replace(/^data:[^;]+;base64,/, '');
+  
+  // Convert base64 to binary
+  const binaryString = atob(base64Data);
+  const bytes = new Uint8Array(binaryString.length);
+  
+  for (let i = 0; i < binaryString.length; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  
+  // Create and return File object
+  return new File([bytes], filename, { type: mimeType });
+}
+
 function showNotification(message, type = 'info') {
   // Create a simple notification
   const notification = document.createElement('div');
@@ -268,4 +653,5 @@ function showNotification(message, type = 'info') {
     setTimeout(() => notification.remove(), 300);
   }, 4000);
 }
+
 
