@@ -31,7 +31,6 @@
 		1E28F6E72EBA84B900F64AC3 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E28F6A72EBA84B900F64AC3 /* SafariWebExtensionHandler.swift */; };
 		1E28F7062EBA84BA00F64AC3 /* TESTING-CHECKLIST.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6F92EBA84BA00F64AC3 /* TESTING-CHECKLIST.md */; };
 		1E28F7072EBA84BA00F64AC3 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FA2EBA84BA00F64AC3 /* background.js */; };
-		1E28F7082EBA84BA00F64AC3 /* QUICK-START.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FB2EBA84BA00F64AC3 /* QUICK-START.md */; };
 		1E28F7092EBA84BA00F64AC3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FC2EBA84BA00F64AC3 /* README.md */; };
 		1E28F70A2EBA84BA00F64AC3 /* fileData.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FD2EBA84BA00F64AC3 /* fileData.js */; };
 		1E28F70C2EBA84BA00F64AC3 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FF2EBA84BA00F64AC3 /* icons */; };
@@ -43,7 +42,6 @@
 		1E28F7122EBA84BA00F64AC3 /* generate-icons.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7052EBA84BA00F64AC3 /* generate-icons.js */; };
 		1E28F7132EBA84BA00F64AC3 /* TESTING-CHECKLIST.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6F92EBA84BA00F64AC3 /* TESTING-CHECKLIST.md */; };
 		1E28F7142EBA84BA00F64AC3 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FA2EBA84BA00F64AC3 /* background.js */; };
-		1E28F7152EBA84BA00F64AC3 /* QUICK-START.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FB2EBA84BA00F64AC3 /* QUICK-START.md */; };
 		1E28F7162EBA84BA00F64AC3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FC2EBA84BA00F64AC3 /* README.md */; };
 		1E28F7172EBA84BA00F64AC3 /* fileData.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FD2EBA84BA00F64AC3 /* fileData.js */; };
 		1E28F7192EBA84BA00F64AC3 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FF2EBA84BA00F64AC3 /* icons */; };
@@ -61,6 +59,9 @@
 		1E640F862EBA853E005B9D3F /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E640F7E2EBA853E005B9D3F /* Script.js */; };
 		1E640F872EBA853E005B9D3F /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E640F7B2EBA853E005B9D3F /* Icon.png */; };
 		1E640F882EBA853E005B9D3F /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 1E640F7D2EBA853E005B9D3F /* Main.html */; };
+		1E6B8CE92EBD27D40049BC68 /* userData.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E6B8CE82EBD27D40049BC68 /* userData.js */; };
+		1E6B8CEA2EBD27D40049BC68 /* userData.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E6B8CE82EBD27D40049BC68 /* userData.js */; };
+		1E6B8CEB2EBD27D40049BC68 /* userData.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E6B8CE82EBD27D40049BC68 /* userData.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,7 +130,6 @@
 		1E28F6D92EBA84B900F64AC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E28F6F92EBA84BA00F64AC3 /* TESTING-CHECKLIST.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "TESTING-CHECKLIST.md"; path = "../../TESTING-CHECKLIST.md"; sourceTree = "<group>"; };
 		1E28F6FA2EBA84BA00F64AC3 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../background.js; sourceTree = "<group>"; };
-		1E28F6FB2EBA84BA00F64AC3 /* QUICK-START.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "QUICK-START.md"; path = "../../QUICK-START.md"; sourceTree = "<group>"; };
 		1E28F6FC2EBA84BA00F64AC3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		1E28F6FD2EBA84BA00F64AC3 /* fileData.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = fileData.js; path = ../../fileData.js; sourceTree = "<group>"; };
 		1E28F6FF2EBA84BA00F64AC3 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../icons; sourceTree = "<group>"; };
@@ -143,6 +143,7 @@
 		1E640F7C2EBA853E005B9D3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
 		1E640F7E2EBA853E005B9D3F /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
 		1E640F7F2EBA853E005B9D3F /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		1E6B8CE82EBD27D40049BC68 /* userData.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = userData.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +216,7 @@
 		1E28F6A62EBA84B900F64AC3 /* Shared (Extension) */ = {
 			isa = PBXGroup;
 			children = (
+				1E6B8CE82EBD27D40049BC68 /* userData.js */,
 				1E28F6F82EBA84BA00F64AC3 /* Resources */,
 				1E28F6A72EBA84B900F64AC3 /* SafariWebExtensionHandler.swift */,
 			);
@@ -275,7 +277,6 @@
 			children = (
 				1E28F6F92EBA84BA00F64AC3 /* TESTING-CHECKLIST.md */,
 				1E28F6FA2EBA84BA00F64AC3 /* background.js */,
-				1E28F6FB2EBA84BA00F64AC3 /* QUICK-START.md */,
 				1E28F6FC2EBA84BA00F64AC3 /* README.md */,
 				1E28F6FD2EBA84BA00F64AC3 /* fileData.js */,
 				1E28F6FF2EBA84BA00F64AC3 /* icons */,
@@ -463,6 +464,7 @@
 				1E640F862EBA853E005B9D3F /* Script.js in Resources */,
 				1E640F872EBA853E005B9D3F /* Icon.png in Resources */,
 				1E640F882EBA853E005B9D3F /* Main.html in Resources */,
+				1E6B8CEA2EBD27D40049BC68 /* userData.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,8 +474,8 @@
 			files = (
 				1E28F71D2EBA84BA00F64AC3 /* INSTALLATION.md in Resources */,
 				1E28F71E2EBA84BA00F64AC3 /* build-files.js in Resources */,
-				1E28F7152EBA84BA00F64AC3 /* QUICK-START.md in Resources */,
 				1E28F7142EBA84BA00F64AC3 /* background.js in Resources */,
+				1E6B8CE92EBD27D40049BC68 /* userData.js in Resources */,
 				1E28F7162EBA84BA00F64AC3 /* README.md in Resources */,
 				1E28F7172EBA84BA00F64AC3 /* fileData.js in Resources */,
 				1E28F71A2EBA84BA00F64AC3 /* manifest.json in Resources */,
@@ -491,8 +493,8 @@
 			files = (
 				1E28F7102EBA84BA00F64AC3 /* INSTALLATION.md in Resources */,
 				1E28F7112EBA84BA00F64AC3 /* build-files.js in Resources */,
-				1E28F7082EBA84BA00F64AC3 /* QUICK-START.md in Resources */,
 				1E28F7072EBA84BA00F64AC3 /* background.js in Resources */,
+				1E6B8CEB2EBD27D40049BC68 /* userData.js in Resources */,
 				1E28F7092EBA84BA00F64AC3 /* README.md in Resources */,
 				1E28F70A2EBA84BA00F64AC3 /* fileData.js in Resources */,
 				1E28F70D2EBA84BA00F64AC3 /* manifest.json in Resources */,
