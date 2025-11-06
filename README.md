@@ -13,15 +13,37 @@ A Safari browser extension that automatically fills job application forms on SAP
 
 ## Quick Start
 
+### First Time Setup
+
+**Before installation, configure your personal data:**
+
+1. **Set up your information:**
+   ```bash
+   cp userData.example.js userData.js
+   ```
+   Edit `userData.js` with your name, email, and phone.
+
+2. **Add your files:**
+   - Add `assets/photo.png` (your photo)
+   - Add `assets/CV.pdf` (your CV)
+
+3. **Generate file data:**
+   ```bash
+   node build-files.js
+   ```
+
+See detailed setup instructions in [SETUP.md](SETUP.md)
+
 ### Installation
 
-See detailed instructions in [INSTALLATION.md](INSTALLATION.md) or [QUICK-START.md](QUICK-START.md)
+See detailed instructions in [INSTALLATION.md](INSTALLATION.md)
 
 **Quick steps for Safari 14+ (macOS Big Sur and newer):**
-1. Convert to Safari Web Extension: `xcrun safari-web-extension-converter .`
-2. Open the generated Xcode project
-3. Build and run in Xcode (⌘R)
-4. Enable the extension in Safari Settings > Extensions
+1. Complete the setup above first!
+2. Convert to Safari Web Extension: `xcrun safari-web-extension-converter .`
+3. Open the generated Xcode project
+4. Build and run in Xcode (⌘R)
+5. Enable the extension in Safari Settings > Extensions
 
 > **Note:** Safari 14+ requires Xcode. The old "Extension Builder" is no longer available.
 
@@ -36,22 +58,31 @@ See detailed instructions in [INSTALLATION.md](INSTALLATION.md) or [QUICK-START.
 
 ```
 safari-sapo-autofill-extension/
-├── manifest.json          # Extension configuration
-├── background.js          # Background service worker
-├── content.js            # Content script for form filling
-├── fileData.js           # Base64-encoded CV and photo (generated)
-├── build-files.js        # Script to generate fileData.js
-├── generate-icons.js     # Script to generate extension icons
-├── assets/               # Your personal files
-│   ├── photo.png        # Your photo
-│   └── CV.pdf           # Your CV
-├── icons/                # Extension icons
-│   ├── icon-48.png
-│   ├── icon-96.png
-│   └── icon-128.png
-├── README.md             # This file
-└── INSTALLATION.md       # Detailed installation guide
+├── manifest.json             # Extension configuration
+├── background.js             # Background service worker
+├── content.js               # Content script for form filling
+├── userData.js              # Your personal info (NOT in git)
+├── userData.example.js      # Template for personal info
+├── fileData.js              # Base64-encoded files (NOT in git, generated)
+├── fileData.example.js      # Template for file data
+├── build-files.js           # Script to generate fileData.js
+├── .gitignore               # Excludes personal data from git
+├── assets/                  # Your personal files (NOT in git)
+│   ├── photo.png           # Your photo
+│   └── CV.pdf              # Your CV
+├── icons/                   # Extension icons
+├── SETUP.md                 # Personal data setup guide
+├── INSTALLATION.md          # Extension installation guide
+└── README.md                # This file
 ```
+
+### Files Excluded from Git (Private)
+
+These files contain your personal data and are **NOT** committed to GitHub:
+- `userData.js` - Your name, email, phone
+- `fileData.js` - Your files as base64
+- `assets/photo.png` - Your photo
+- `assets/CV.pdf` - Your CV
 
 ## How It Works
 
@@ -65,7 +96,7 @@ safari-sapo-autofill-extension/
 
 ### Change Personal Information
 
-Edit the `FORM_DATA` object in `content.js`:
+Edit `userData.js` (not `content.js`):
 
 ```javascript
 const FORM_DATA = {
@@ -74,6 +105,8 @@ const FORM_DATA = {
   phone: 'your-phone'
 };
 ```
+
+Then reload the extension in Safari.
 
 ### Update Files
 
@@ -98,7 +131,9 @@ const FORM_DATA = {
 - 🔒 Your personal data never leaves your computer
 - 🔒 No external API calls or tracking
 - 🔒 Only activates on SAPO Emprego domains
-- ⚠️ Keep the extension folder private (contains your personal info)
+- ✅ **Safe to share on GitHub** - Personal data excluded via `.gitignore`
+- ✅ Your private files (`userData.js`, `fileData.js`, `assets/*`) are NOT committed
+- ✅ Other users can clone and add their own information
 
 ## Troubleshooting
 
@@ -143,9 +178,29 @@ xcrun safari-web-extension-converter .
 5. Test the autofill button
 6. Check Safari's Web Inspector console for debug output
 
+## Committing to GitHub
+
+Your personal data is protected via `.gitignore`. Safe to commit:
+
+```bash
+# Verify protected files are ignored
+git status --ignored | grep -E "(userData|fileData|assets)"
+
+# Add and commit changes
+git add .
+git commit -m "Your commit message"
+git push origin main
+```
+
+Your personal files (`userData.js`, `fileData.js`, `assets/`) will NOT be pushed to GitHub! 🔒
+
+## Contributing
+
+Feel free to fork this repository and customize it for your needs. The personal data setup ensures your information stays private while you can still share the code.
+
 ## License
 
-Personal use only. This extension contains your personal information.
+This is a personal automation tool. Feel free to use and modify for your own purposes.
 
 ## Credits
 

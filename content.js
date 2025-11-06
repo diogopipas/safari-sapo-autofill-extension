@@ -2,12 +2,16 @@
 
 console.log('SAPO Autofill Extension loaded');
 
-// Personal information to fill
-const FORM_DATA = {
-  name: 'Diogo Guerreiro Porto',
-  email: 'diogo.g.portob@gmail.com',
-  phone: '933949061'
-};
+// Personal information to fill - loaded from userData.js
+// Create userData.js from userData.example.js with your information
+if (typeof FORM_DATA === 'undefined') {
+  console.error('❌ FORM_DATA not loaded! Please create userData.js from userData.example.js');
+  const FORM_DATA = {
+    name: '',
+    email: '',
+    phone: ''
+  };
+}
 
 // Listen for autofill trigger from background script
 window.addEventListener('message', (event) => {

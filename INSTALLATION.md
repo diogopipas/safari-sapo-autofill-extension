@@ -1,5 +1,14 @@
 # Safari SAPO Autofill Extension - Installation & Usage Guide
 
+## Prerequisites
+
+> **Important:** Before installing, you must configure your personal data. See `SETUP.md` for detailed instructions.
+
+**Quick setup:**
+1. Copy `userData.example.js` to `userData.js` and add your info
+2. Add your `photo.png` and `CV.pdf` to the `assets/` folder
+3. Run `node build-files.js` to generate file data
+
 ## Installation Steps
 
 > **Note:** Safari 14+ (macOS Big Sur and newer) uses Safari Web Extensions built with Xcode. The old "Extension Builder" tool has been removed.
@@ -65,11 +74,9 @@ For quick testing without Xcode:
 2. Click the **SAPO Emprego Autofill** button in Safari's toolbar
    - The button should appear as a blue icon with a form and checkmark
 3. The extension will automatically:
-   - Fill in your name: **Diogo Guerreiro Porto**
-   - Fill in your email: **diogo.g.portob@gmail.com**
-   - Fill in your phone: **933949061**
-   - Upload your photo (`photo.png`)
-   - Upload your CV (`CV.pdf`)
+   - Fill in your name, email, and phone (from `userData.js`)
+   - Upload your photo from `assets/photo.png`
+   - Upload your CV from `assets/CV.pdf`
    - Check the terms and conditions checkbox
    - Click the submit button
 4. A notification will appear confirming the autofill process
@@ -122,7 +129,7 @@ If you need to modify the autofill data:
 
 ### Changing Personal Information
 
-Edit `content.js` and modify the `FORM_DATA` object:
+Edit `userData.js` and modify your information:
 
 ```javascript
 const FORM_DATA = {
@@ -139,7 +146,6 @@ const FORM_DATA = {
    - `assets/CV.pdf` - Your CV
 2. Run the build script to regenerate `fileData.js`:
    ```bash
-   cd /Users/diogoporto/Documents/safari-sapo-autofill-extension
    node build-files.js
    ```
 3. Reload the extension (stop and re-run in Xcode, or use **Develop > Reload Extension**)
@@ -153,15 +159,28 @@ const FORM_DATA = {
 3. Refresh the job application page in Safari
 4. Test the extension
 
-## Security Note
+## Security & Privacy
 
-This extension stores your personal information and files (as base64) directly in the extension code. This means:
+This extension stores your personal information and files (as base64) directly in the extension code:
 
+### Security Benefits
 - ✓ The data never leaves your computer
 - ✓ No external servers or APIs are involved
 - ✓ Your data is as secure as your local file system
-- ⚠️ Anyone with access to the extension files can see your data
-- ⚠️ Don't share the extension folder with others if you want to keep your information private
+- ✓ Personal files are excluded from git via `.gitignore`
+
+### Privacy Protection
+- ✓ Safe to share on GitHub - personal data files are excluded
+- ✓ `userData.js` - NOT committed (contains your info)
+- ✓ `fileData.js` - NOT committed (contains your files)
+- ✓ `assets/photo.png` & `assets/CV.pdf` - NOT committed
+
+### What Gets Shared
+When you commit to GitHub, only these files are included:
+- Extension code (`content.js`, `background.js`, etc.)
+- Example templates (`userData.example.js`, `fileData.example.js`)
+- Documentation and build scripts
+- NO personal information or files
 
 ## Uninstalling
 

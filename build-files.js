@@ -7,6 +7,19 @@ const path = require('path');
 const photoPath = path.join(__dirname, 'assets', 'photo.png');
 const cvPath = path.join(__dirname, 'assets', 'CV.pdf');
 
+// Check if files exist
+if (!fs.existsSync(photoPath)) {
+  console.error('❌ Error: assets/photo.png not found!');
+  console.error('   Please add your photo to the assets/ folder.');
+  process.exit(1);
+}
+
+if (!fs.existsSync(cvPath)) {
+  console.error('❌ Error: assets/CV.pdf not found!');
+  console.error('   Please add your CV to the assets/ folder.');
+  process.exit(1);
+}
+
 const photoBase64 = fs.readFileSync(photoPath).toString('base64');
 const cvBase64 = fs.readFileSync(cvPath).toString('base64');
 

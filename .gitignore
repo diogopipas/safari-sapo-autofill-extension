@@ -1,25 +1,19 @@
+# Personal Data - DO NOT COMMIT
+userData.js
+fileData.js
+assets/photo.png
+assets/CV.pdf
+
 # macOS
 .DS_Store
-.AppleDouble
-.LSOverride
 
 # Xcode
-xcuserdata/
 *.xcuserstate
-*.mode1v3
-*.mode2v3
-*.perspectivev3
-*.xccheckout
-*.moved-aside
-DerivedData
-*.hmap
-*.ipa
-*.dSYM.zip
-*.dSYM
+*.xcuserdatad/
+project.xcworkspace/xcuserdata/
 
-# Project specific
-fileData.js
+# Node
+node_modules/
 
-
-# Personal files - do not commit
-assets/
+# Build artifacts
+*.log

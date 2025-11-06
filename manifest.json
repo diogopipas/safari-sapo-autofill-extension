@@ -28,7 +28,7 @@
         "*://*.emprego.sapo.pt/*",
         "*://emprego.sapo.pt/*"
       ],
-      "js": ["fileData.js", "content.js"],
+      "js": ["userData.js", "fileData.js", "content.js"],
       "run_at": "document_idle"
     }
   ],
