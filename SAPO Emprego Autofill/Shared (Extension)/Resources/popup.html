@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="popup-container">
+        <div class="header">
+            <img src="icons/icon-48.png" alt="SAPO Emprego Autofill" class="logo">
+            <h1>SAPO Emprego Autofill</h1>
+        </div>
+        
+        <div class="form-section">
+            <form id="autofillForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your Full Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Photo</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="photo" name="photo" accept="image/*" class="file-input-hidden">
+                        <label for="photo" class="file-input-label">
+                            <span class="file-button">Choose File</span>
+                            <span class="file-name" id="photoFileName">No file selected</span>
+                        </label>
+                    </div>
+                    <small class="file-info">PNG, JPG, JPEG (optional if already saved)</small>
+                </div>
+
+                <div class="form-group">
+                    <label>CV/Resume (PDF)</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="cv" name="cv" accept="application/pdf" class="file-input-hidden">
+                        <label for="cv" class="file-input-label">
+                            <span class="file-button">Choose File</span>
+                            <span class="file-name" id="cvFileName">No file selected</span>
+                        </label>
+                    </div>
+                    <small class="file-info">PDF format (optional if already saved)</small>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" id="saveButton" class="primary-btn">
+                        💾 Save Data
+                    </button>
+                </div>
+                
+                <div class="info-box">
+                    <p><strong>💡 How to use:</strong></p>
+                    <ul>
+                        <li>📝 <strong>Single click</strong> the extension icon to fill forms</li>
+                        <li>✏️ <strong>Double click</strong> the extension icon to edit your data</li>
+                    </ul>
+                </div>
+
+                <div id="statusMessage" class="status-message"></div>
+            </form>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
+
