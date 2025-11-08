@@ -4,8 +4,9 @@ const fs = require('fs');
 const path = require('path');
 
 // Read and convert files to base64
-const photoPath = path.join(__dirname, 'assets', 'photo.png');
-const cvPath = path.join(__dirname, 'assets', 'CV.pdf');
+const projectRoot = path.join(__dirname, '..');
+const photoPath = path.join(projectRoot, 'assets', 'photo.png');
+const cvPath = path.join(projectRoot, 'assets', 'CV.pdf');
 
 // Check if files exist
 if (!fs.existsSync(photoPath)) {
@@ -61,8 +62,8 @@ if (typeof window !== 'undefined') {
 }
 `;
 
-// Write fileData.js
-const outputPath = path.join(__dirname, 'fileData.js');
+// Write fileData.js to root directory
+const outputPath = path.join(projectRoot, 'fileData.js');
 fs.writeFileSync(outputPath, fileDataContent);
 
 console.log('✓ Generated fileData.js successfully!');
