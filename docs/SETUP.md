@@ -38,14 +38,14 @@ Place your personal files in the `assets/` folder:
 Run the build script to convert your files to base64:
 
 ```bash
-node build-files.js
+node scripts/build-files.js
 ```
 
 This will create `fileData.js` with your embedded files.
 
 ### 4. Build the Extension
 
-Follow the instructions in `INSTALLATION.md` to build and install the extension in Safari.
+Follow the instructions in [INSTALLATION.md](INSTALLATION.md) to build and install the extension in Safari.
 
 ## What's Excluded from Git?
 
@@ -63,7 +63,7 @@ The following files are safe to share:
 - ✅ `userData.example.js` - Template for personal info
 - ✅ `fileData.example.js` - Template for file data
 - ✅ `content.js` - Extension logic (no personal data)
-- ✅ `build-files.js` - Build script
+- ✅ `scripts/build-files.js` - Build script
 - ✅ All other extension files
 
 ## Updating Your Information
@@ -72,7 +72,7 @@ To update your personal information:
 
 1. Edit `userData.js` to change name, email, or phone
 2. Replace files in `assets/` folder if needed
-3. Run `node build-files.js` if you changed files
+3. Run `node scripts/build-files.js` if you changed files
 4. Reload the extension in Safari
 
 ## Security Notes
@@ -88,8 +88,8 @@ If you cloned this repository, you'll need to:
 
 1. Create `userData.js` from the example
 2. Add your files to `assets/`
-3. Run `node build-files.js`
+3. Run `node scripts/build-files.js`
 4. Build in Xcode
 
-See `INSTALLATION.md` for complete installation instructions.
+See [INSTALLATION.md](INSTALLATION.md) for complete installation instructions.
 

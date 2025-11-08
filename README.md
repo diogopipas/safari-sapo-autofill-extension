@@ -31,14 +31,24 @@ A Safari browser extension that automatically fills job application forms on SAP
 
 3. **Generate file data:**
    ```bash
-   node build-files.js
+   npm run build
    ```
 
-See detailed setup instructions in [SETUP.md](SETUP.md)
+4. **Sync to Xcode project:**
+   ```bash
+   npm run sync
+   ```
+
+Or run both in one command:
+```bash
+npm run setup
+```
+
+See detailed setup instructions in [docs/SETUP.md](docs/SETUP.md)
 
 ### Installation
 
-See detailed instructions in [INSTALLATION.md](INSTALLATION.md)
+See detailed instructions in [docs/INSTALLATION.md](docs/INSTALLATION.md)
 
 **Quick steps for Safari 14+ (macOS Big Sur and newer):**
 1. Complete the setup above first!
@@ -58,7 +68,7 @@ The fastest way to use the extension:
 1. **Single-click** anywhere on the form → Automatically fills with your saved data
 2. **Double-click** anywhere on the form → Opens popup to edit your information
 
-See [CLICK-FEATURE.md](CLICK-FEATURE.md) for detailed documentation on this feature.
+See [docs/CLICK-FEATURE.md](docs/CLICK-FEATURE.md) for detailed documentation on this feature.
 
 **📝 Edit & Save via Popup**
 
@@ -67,34 +77,29 @@ You can also click the extension icon to open the popup:
 - Upload new photo or CV files
 - Click "Save Data" to store changes for future use
 
-See [USAGE.md](USAGE.md) for detailed usage guide.
+See [docs/USAGE.md](docs/USAGE.md) for detailed usage guide.
 
 ## Project Structure
 
 ```
 safari-sapo-autofill-extension/
-├── manifest.json             # Extension configuration
-├── background.js             # Background service worker
-├── content.js               # Content script for form filling
-├── popup.html               # NEW: Popup interface HTML
-├── popup.css                # NEW: Popup styles
-├── popup.js                 # NEW: Popup logic
-├── userData.js              # Your personal info (NOT in git)
-├── userData.example.js      # Template for personal info
-├── fileData.js              # Base64-encoded files (NOT in git, generated)
-├── fileData.example.js      # Template for file data
-├── build-files.js           # Script to generate fileData.js
-├── .gitignore               # Excludes personal data from git
-├── assets/                  # Your personal files (NOT in git)
-│   ├── photo.png           # Your photo
-│   └── CV.pdf              # Your CV
+├── Extension Files (Root)   # Source files for the extension
+│   ├── manifest.json        # Extension configuration
+│   ├── background.js        # Background service worker
+│   ├── content.js          # Content script for form filling
+│   ├── popup.*             # Popup interface (HTML, CSS, JS)
+│   ├── userData.js         # Your personal info (gitignored)
+│   └── fileData.js         # Base64 files (gitignored, generated)
+├── assets/                  # Your files (gitignored)
 ├── icons/                   # Extension icons
-├── SETUP.md                 # Personal data setup guide
-├── INSTALLATION.md          # Extension installation guide
-├── POPUP-GUIDE.md           # NEW: Popup usage guide
-├── CLICK-FEATURE.md         # NEW: Click-to-fill feature guide
-└── README.md                # This file
+├── scripts/                 # Build and sync scripts
+├── docs/                    # Documentation
+├── SAPO Emprego Autofill/  # Xcode project
+├── package.json            # NPM scripts and metadata
+└── README.md               # This file
 ```
+
+📖 See [docs/PROJECT-STRUCTURE.md](docs/PROJECT-STRUCTURE.md) for detailed organization
 
 ### Files Excluded from Git (Private)
 
@@ -131,8 +136,8 @@ Then reload the extension in Safari.
 ### Update Files
 
 1. Replace files in `assets/` folder
-2. Run: `node build-files.js`
-3. Reload extension in Safari
+2. Run: `npm run build-and-sync`
+3. Rebuild in Xcode (⇧⌘K, then ⌘R)
 
 ## Technical Details
 
@@ -172,21 +177,32 @@ Then reload the extension in Safari.
 - Check console for specific error messages
 - May require manual file selection on some forms
 
-For more help, see [INSTALLATION.md](INSTALLATION.md)
+For more help, see [docs/INSTALLATION.md](docs/INSTALLATION.md)
 
 ## Development
+
+### Available Commands
+
+```bash
+npm run help           # Show all available commands
+npm run build          # Generate fileData.js from assets
+npm run sync           # Sync files to Xcode project
+npm run build-and-sync # Build and sync in one command
+npm run setup          # Initial setup after cloning
+npm run generate-icons # Generate icon files
+npm run rebuild        # Force rebuild (clean and reopen Xcode)
+```
 
 ### Building the Extension
 
 ```bash
-# Generate fileData.js from assets
-node build-files.js
+# After making changes to extension files
+npm run sync
 
-# Generate icons
-node generate-icons.js
+# After changing assets
+npm run build-and-sync
 
-# Convert to Safari Web Extension
-xcrun safari-web-extension-converter .
+# Then rebuild in Xcode (⇧⌘K, then ⌘R)
 ```
 
 ### Testing

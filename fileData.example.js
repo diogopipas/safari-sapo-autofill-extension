@@ -1,5 +1,5 @@
 // Example file data structure
-// Run 'node build-files.js' to generate fileData.js with your actual files
+// Run 'node scripts/build-files.js' to generate fileData.js with your actual files
 
 const FILE_DATA = {
   photo: {

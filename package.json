@@ -1,0 +1,34 @@
+{
+  "name": "sapo-emprego-autofill",
+  "version": "1.0.0",
+  "description": "Safari extension to automatically fill SAPO Emprego job application forms",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-files.js",
+    "sync": "node scripts/sync-to-xcode.js",
+    "build-and-sync": "npm run build && npm run sync",
+    "setup": "npm run build && npm run sync",
+    "generate-icons": "node scripts/generate-icons.js",
+    "rebuild": "bash scripts/rebuild.sh",
+    "help": "echo '\n📦 Available commands:\n\n  npm run build          - Generate fileData.js from assets\n  npm run sync           - Sync files to Xcode project\n  npm run build-and-sync - Build and sync in one command\n  npm run setup          - Initial setup after cloning\n  npm run generate-icons - Generate icon files\n  npm run rebuild        - Force rebuild (cleans and reopens Xcode)\n\n📖 Documentation:\n  - docs/SETUP.md        - Initial setup guide\n  - docs/INSTALLATION.md - Installation instructions\n  - docs/USAGE.md        - Usage guide\n'"
+  },
+  "keywords": [
+    "safari",
+    "extension",
+    "autofill",
+    "sapo",
+    "emprego",
+    "job",
+    "application"
+  ],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/safari-sapo-autofill-extension.git"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
+
