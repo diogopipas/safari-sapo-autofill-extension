@@ -4,12 +4,14 @@ A Safari browser extension that automatically fills job application forms on SAP
 
 ## Features
 
-- 🚀 **One-Click Autofill**: Click the toolbar button to instantly fill the entire form
+- 🎯 **Click-to-Fill**: Single-click form to autofill, double-click to edit data
+- 🚀 **Instant Autofill**: Click once to instantly fill entire forms
 - 📝 **Personal Info**: Automatically fills name, email, and phone number
 - 📄 **CV Upload**: Uploads your CV (PDF) to the form
 - 📷 **Photo Upload**: Uploads your profile photo (PNG) to the form
 - ✅ **Terms Acceptance**: Automatically checks the terms and conditions checkbox
-- 📤 **Auto-Submit**: Optionally submits the form after filling (with confirmation)
+- 💾 **Data Storage**: All your info is securely stored in the browser
+- 🎨 **Modern UI**: Beautiful, polished interface with custom file inputs
 
 ## Quick Start
 
@@ -49,10 +51,23 @@ See detailed instructions in [INSTALLATION.md](INSTALLATION.md)
 
 ### Usage
 
-1. Go to any SAPO Emprego job application page
-2. Click the **SAPO Emprego Autofill** button in the toolbar
-3. Watch as your form gets filled automatically!
-4. Verify the information and submit
+**🎯 Click-to-Fill Feature**
+
+The fastest way to use the extension:
+
+1. **Single-click** anywhere on the form → Automatically fills with your saved data
+2. **Double-click** anywhere on the form → Opens popup to edit your information
+
+See [CLICK-FEATURE.md](CLICK-FEATURE.md) for detailed documentation on this feature.
+
+**📝 Edit & Save via Popup**
+
+You can also click the extension icon to open the popup:
+- Edit your information anytime (name, email, phone)
+- Upload new photo or CV files
+- Click "Save Data" to store changes for future use
+
+See [USAGE.md](USAGE.md) for detailed usage guide.
 
 ## Project Structure
 
@@ -61,6 +76,9 @@ safari-sapo-autofill-extension/
 ├── manifest.json             # Extension configuration
 ├── background.js             # Background service worker
 ├── content.js               # Content script for form filling
+├── popup.html               # NEW: Popup interface HTML
+├── popup.css                # NEW: Popup styles
+├── popup.js                 # NEW: Popup logic
 ├── userData.js              # Your personal info (NOT in git)
 ├── userData.example.js      # Template for personal info
 ├── fileData.js              # Base64-encoded files (NOT in git, generated)
@@ -73,6 +91,8 @@ safari-sapo-autofill-extension/
 ├── icons/                   # Extension icons
 ├── SETUP.md                 # Personal data setup guide
 ├── INSTALLATION.md          # Extension installation guide
+├── POPUP-GUIDE.md           # NEW: Popup usage guide
+├── CLICK-FEATURE.md         # NEW: Click-to-fill feature guide
 └── README.md                # This file
 ```
 

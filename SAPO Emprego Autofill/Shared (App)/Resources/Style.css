@@ -4,10 +4,21 @@
     cursor: default;
 }
 
+input, textarea, select {
+    -webkit-user-select: text;
+    cursor: text;
+}
+
+input[type="file"] {
+    cursor: pointer;
+}
+
 :root {
     color-scheme: light dark;
 
     --spacing: 20px;
+    --border-radius: 8px;
+    --input-padding: 10px 12px;
 }
 
 html {
@@ -21,12 +32,49 @@ body {
     flex-direction: column;
 
     gap: var(--spacing);
-    margin: 0 calc(var(--spacing) * 2);
-    height: 100%;
+    margin: 0;
+    padding: calc(var(--spacing) * 2);
+    min-height: 100vh;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: auto;
 
     font: -apple-system-short-body;
-    text-align: center;
+    text-align: left;
 }
+
+.header-section {
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-section img {
+    width: 256px;
+    height: 256px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    display: block;
+    border: none;
+    padding: 0;
+}
+
+.header-section h1 {
+    margin: 0 0 12px 0;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.header-section p {
+    margin: 8px 0;
+    font-size: 0.95em;
+    max-width: 400px;
+}
+
 
 body:not(.platform-mac, .platform-ios) :is(.platform-mac, .platform-ios) {
     display: none;
@@ -58,4 +106,46 @@ body.state-off :is(.state-on, .state-unknown) {
 
 button {
     font-size: 1em;
+}
+
+.open-preferences {
+    margin-top: 12px;
+    padding: 10px 20px;
+}
+
+/* Improve window appearance */
+@media (max-height: 600px) {
+    .header-section img {
+        width: 128px;
+        height: 128px;
+        margin-bottom: 12px;
+        object-fit: cover;
+        display: block;
+        border: none;
+        padding: 0;
+    }
+    
+    .header-section h1 {
+        font-size: 1.2em;
+    }
+    
+    .header-section p {
+        font-size: 0.85em;
+    }
+}
+
+@media (min-height: 800px) {
+    .header-section img {
+        width: 320px;
+        height: 320px;
+        margin-bottom: 24px;
+        object-fit: cover;
+        display: block;
+        border: none;
+        padding: 0;
+    }
+    
+    .header-section h1 {
+        font-size: 1.8em;
+    }
 }
