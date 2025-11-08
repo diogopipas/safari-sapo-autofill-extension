@@ -10,7 +10,7 @@ ASSETS_DIR="SAPO Emprego Autofill/Shared (App)/Assets.xcassets/AppIcon.appiconse
 rm -f "$ICONS_DIR"/*.png
 
 # Convert all SVG files to PNG
-for size in 16 32 64 128 256 512 1024; do
+for size in 16 32 48 64 96 128 256 512 1024; do
     echo "Converting icon-$size.svg..."
     sips -s format png "$ICONS_DIR/icon-$size.svg" --out "$ICONS_DIR/icon-$size.png" > /dev/null 2>&1
 done
