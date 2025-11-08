@@ -32,7 +32,6 @@
 		1E28F7072EBA84BA00F64AC3 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FA2EBA84BA00F64AC3 /* background.js */; };
 		1E28F7092EBA84BA00F64AC3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FC2EBA84BA00F64AC3 /* README.md */; };
 		1E28F70A2EBA84BA00F64AC3 /* fileData.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FD2EBA84BA00F64AC3 /* fileData.js */; };
-		1E28F70B2EBA84BA00F64AC3 /* userData.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FE2EBA84BA00F64AC3 /* userData.js */; };
 		1E28F70C2EBA84BA00F64AC3 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FF2EBA84BA00F64AC3 /* icons */; };
 		1E28F70D2EBA84BA00F64AC3 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7002EBA84BA00F64AC3 /* manifest.json */; };
 		1E28F70E2EBA84BA00F64AC3 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7012EBA84BA00F64AC3 /* content.js */; };
@@ -42,7 +41,6 @@
 		1E28F7142EBA84BA00F64AC3 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FA2EBA84BA00F64AC3 /* background.js */; };
 		1E28F7162EBA84BA00F64AC3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FC2EBA84BA00F64AC3 /* README.md */; };
 		1E28F7172EBA84BA00F64AC3 /* fileData.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FD2EBA84BA00F64AC3 /* fileData.js */; };
-		1E28F7182EBA84BA00F64AC3 /* userData.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FE2EBA84BA00F64AC3 /* userData.js */; };
 		1E28F7192EBA84BA00F64AC3 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F6FF2EBA84BA00F64AC3 /* icons */; };
 		1E28F71A2EBA84BA00F64AC3 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7002EBA84BA00F64AC3 /* manifest.json */; };
 		1E28F71B2EBA84BA00F64AC3 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1E28F7012EBA84BA00F64AC3 /* content.js */; };
@@ -135,7 +133,6 @@
 		1E28F6FA2EBA84BA00F64AC3 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../background.js; sourceTree = "<group>"; };
 		1E28F6FC2EBA84BA00F64AC3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		1E28F6FD2EBA84BA00F64AC3 /* fileData.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = fileData.js; path = ../../fileData.js; sourceTree = "<group>"; };
-		1E28F6FE2EBA84BA00F64AC3 /* userData.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = userData.js; path = ../../userData.js; sourceTree = "<group>"; };
 		1E28F6FF2EBA84BA00F64AC3 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../icons; sourceTree = "<group>"; };
 		1E28F7002EBA84BA00F64AC3 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../manifest.json; sourceTree = "<group>"; };
 		1E28F7012EBA84BA00F64AC3 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = content.js; path = ../../content.js; sourceTree = "<group>"; };
@@ -284,7 +281,6 @@
 				1E28F6FA2EBA84BA00F64AC3 /* background.js */,
 				1E28F6FC2EBA84BA00F64AC3 /* README.md */,
 				1E28F6FD2EBA84BA00F64AC3 /* fileData.js */,
-				1E28F6FE2EBA84BA00F64AC3 /* userData.js */,
 				1E28F6FF2EBA84BA00F64AC3 /* icons */,
 				1E28F7002EBA84BA00F64AC3 /* manifest.json */,
 				1E28F7012EBA84BA00F64AC3 /* content.js */,
@@ -485,7 +481,6 @@
 				1E6B8CE92EBD27D40049BC68 /* userData.js in Resources */,
 				1E28F7162EBA84BA00F64AC3 /* README.md in Resources */,
 				1E28F7172EBA84BA00F64AC3 /* fileData.js in Resources */,
-				1E28F7182EBA84BA00F64AC3 /* userData.js in Resources */,
 				1E28F71A2EBA84BA00F64AC3 /* manifest.json in Resources */,
 				1E28F71C2EBA84BA00F64AC3 /* assets in Resources */,
 				1E28F71B2EBA84BA00F64AC3 /* content.js in Resources */,
@@ -506,7 +501,6 @@
 				1E6B8CEB2EBD27D40049BC68 /* userData.js in Resources */,
 				1E28F7092EBA84BA00F64AC3 /* README.md in Resources */,
 				1E28F70A2EBA84BA00F64AC3 /* fileData.js in Resources */,
-				1E28F70B2EBA84BA00F64AC3 /* userData.js in Resources */,
 				1E28F70D2EBA84BA00F64AC3 /* manifest.json in Resources */,
 				1E28F70F2EBA84BA00F64AC3 /* assets in Resources */,
 				1E28F70E2EBA84BA00F64AC3 /* content.js in Resources */,
