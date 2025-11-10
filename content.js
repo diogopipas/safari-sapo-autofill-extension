@@ -1,23 +1,36 @@
 // Content script for SAPO Emprego Autofill Extension
 
-console.log('SAPO Autofill Extension loaded');
+// Prevent multiple initializations - wrap everything in an IIFE
+(function() {
+  'use strict';
+  
+  // Check if already initialized
+  if (window.__SAPO_AUTOFILL_INITIALIZED__) {
+    console.log('SAPO Autofill Extension already initialized, skipping duplicate initialization...');
+    return; // Exit early to prevent duplicate variable declarations
+  }
+  
+  // Mark as initialized
+  window.__SAPO_AUTOFILL_INITIALIZED__ = true;
+  
+  console.log('SAPO Autofill Extension loaded');
 
-// Personal information to fill - loaded from userData.js
-// Create userData.js from userData.example.js with your information
-if (typeof FORM_DATA === 'undefined') {
-  console.error('❌ FORM_DATA not loaded! Please create userData.js from userData.example.js');
-  const FORM_DATA = {
-    name: '',
-    email: '',
-    phone: ''
-  };
-}
+  // Personal information to fill - loaded from userData.js
+  // Create userData.js from userData.example.js with your information
+  if (typeof FORM_DATA === 'undefined') {
+    console.error('❌ FORM_DATA not loaded! Please create userData.js from userData.example.js');
+    window.FORM_DATA = {
+      name: '',
+      email: '',
+      phone: ''
+    };
+  }
 
-// Click detection for single vs double click
-let clickTimer = null;
-let isDoubleClick = false;
-let lastClickTime = 0;
-const DOUBLE_CLICK_DELAY = 300; // ms
+  // Click detection for single vs double click - use window scope to avoid conflicts
+  window.__SAPO_AUTOFILL_CLICK_TIMER__ = null;
+  window.__SAPO_AUTOFILL_IS_DOUBLE_CLICK__ = false;
+  window.__SAPO_AUTOFILL_LAST_CLICK_TIME__ = 0;
+  window.__SAPO_AUTOFILL_DOUBLE_CLICK_DELAY__ = 300; // ms
 
 // Add click listener to detect form interactions
 function initializeClickListener() {
@@ -102,40 +115,40 @@ async function handleFormClick(event) {
   console.log('Click accepted - processing...');
   
   // If this was part of a double-click, skip single-click action
-  if (isDoubleClick) {
+  if (window.__SAPO_AUTOFILL_IS_DOUBLE_CLICK__) {
     console.log('Part of double-click, skipping single-click action');
-    isDoubleClick = false;
+    window.__SAPO_AUTOFILL_IS_DOUBLE_CLICK__ = false;
     return;
   }
   
   // Check timing to detect rapid double-click
   const currentTime = Date.now();
-  const timeSinceLastClick = currentTime - lastClickTime;
-  lastClickTime = currentTime;
+  const timeSinceLastClick = currentTime - (window.__SAPO_AUTOFILL_LAST_CLICK_TIME__ || 0);
+  window.__SAPO_AUTOFILL_LAST_CLICK_TIME__ = currentTime;
   
   // If this is a rapid second click, don't set a new timer
   // The dblclick event will handle it
-  if (timeSinceLastClick < DOUBLE_CLICK_DELAY) {
+  if (timeSinceLastClick < window.__SAPO_AUTOFILL_DOUBLE_CLICK_DELAY__) {
     console.log('Rapid second click detected - waiting for dblclick event');
     // Clear the existing timer but don't set a new one
-    if (clickTimer) {
-      clearTimeout(clickTimer);
-      clickTimer = null;
+    if (window.__SAPO_AUTOFILL_CLICK_TIMER__) {
+      clearTimeout(window.__SAPO_AUTOFILL_CLICK_TIMER__);
+      window.__SAPO_AUTOFILL_CLICK_TIMER__ = null;
     }
     return;
   }
   
   // Clear any existing timer
-  if (clickTimer) {
-    clearTimeout(clickTimer);
+  if (window.__SAPO_AUTOFILL_CLICK_TIMER__) {
+    clearTimeout(window.__SAPO_AUTOFILL_CLICK_TIMER__);
   }
   
   // Wait to see if a double-click follows
-  clickTimer = setTimeout(async () => {
+  window.__SAPO_AUTOFILL_CLICK_TIMER__ = setTimeout(async () => {
     console.log('✓ Single click detected - autofilling...');
     await handleSingleClick();
-    clickTimer = null;
-  }, DOUBLE_CLICK_DELAY);
+    window.__SAPO_AUTOFILL_CLICK_TIMER__ = null;
+  }, window.__SAPO_AUTOFILL_DOUBLE_CLICK_DELAY__);
 }
 
 function handleFormDoubleClick(event) {
@@ -150,12 +163,12 @@ function handleFormDoubleClick(event) {
   console.log('Double-click accepted - processing...');
   
   // Set flag to prevent single-click action
-  isDoubleClick = true;
+  window.__SAPO_AUTOFILL_IS_DOUBLE_CLICK__ = true;
   
   // Clear the single-click timer
-  if (clickTimer) {
-    clearTimeout(clickTimer);
-    clickTimer = null;
+  if (window.__SAPO_AUTOFILL_CLICK_TIMER__) {
+    clearTimeout(window.__SAPO_AUTOFILL_CLICK_TIMER__);
+    window.__SAPO_AUTOFILL_CLICK_TIMER__ = null;
   }
   
   console.log('✓ Double-click detected - opening popup...');
@@ -163,8 +176,8 @@ function handleFormDoubleClick(event) {
   
   // Reset the flag after a delay
   setTimeout(() => {
-    isDoubleClick = false;
-  }, DOUBLE_CLICK_DELAY);
+    window.__SAPO_AUTOFILL_IS_DOUBLE_CLICK__ = false;
+  }, window.__SAPO_AUTOFILL_DOUBLE_CLICK_DELAY__);
 }
 
 async function handleSingleClick() {
@@ -242,12 +255,18 @@ if (typeof browser !== 'undefined' && browser.runtime) {
     if (message.action === 'fillForm') {
       performAutofillWithData(message.data);
       sendResponse({ success: true });
+    } else if (message.action === 'showPopupOverlay') {
+      showPopupOverlay();
+      sendResponse({ success: true });
     }
   });
 } else if (typeof chrome !== 'undefined' && chrome.runtime) {
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === 'fillForm') {
       performAutofillWithData(message.data);
+      sendResponse({ success: true });
+    } else if (message.action === 'showPopupOverlay') {
+      showPopupOverlay();
       sendResponse({ success: true });
     }
   });
@@ -1003,4 +1022,550 @@ function showNotification(message, type = 'info') {
   }, 4000);
 }
 
+// Show popup overlay on the page
+function showPopupOverlay() {
+  console.log('Showing popup overlay...');
+  
+  // Check if popup already exists
+  if (document.getElementById('sapo-autofill-popup-overlay')) {
+    console.log('Popup already visible');
+    return;
+  }
+  
+  // Get the extension URL
+  const runtimeAPI = typeof browser !== 'undefined' ? browser : chrome;
+  const iconURL = runtimeAPI.runtime.getURL('icons/icon-48.png');
+  
+  // Create overlay backdrop
+  const overlay = document.createElement('div');
+  overlay.id = 'sapo-autofill-popup-overlay';
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
+  `;
+  
+  // Create popup container
+  const popupContainer = document.createElement('div');
+  popupContainer.id = 'sapo-autofill-popup';
+  popupContainer.innerHTML = `
+    <style>
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      #sapo-autofill-popup {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color: #333;
+        background: #ffffff;
+        width: 400px;
+        max-height: 90vh;
+        overflow-y: auto;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        animation: slideIn 0.3s ease;
+      }
+      #sapo-autofill-popup * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      #sapo-autofill-popup .popup-container {
+        padding: 20px;
+      }
+      #sapo-autofill-popup .header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #e0e0e0;
+        position: relative;
+      }
+      #sapo-autofill-popup .close-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #999;
+        cursor: pointer;
+        padding: 0;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        transition: all 0.2s;
+      }
+      #sapo-autofill-popup .close-btn:hover {
+        background: #f0f0f0;
+        color: #333;
+      }
+      #sapo-autofill-popup .logo {
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+      }
+      #sapo-autofill-popup .header h1 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1a1a1a;
+        line-height: 1.2;
+        flex: 1;
+      }
+      #sapo-autofill-popup .form-section {
+        margin-top: 12px;
+      }
+      #sapo-autofill-popup .form-group {
+        margin-bottom: 14px;
+      }
+      #sapo-autofill-popup .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;
+        font-size: 13px;
+        color: #555;
+      }
+      #sapo-autofill-popup input[type="text"],
+      #sapo-autofill-popup input[type="email"],
+      #sapo-autofill-popup input[type="tel"] {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 13px;
+        font-family: inherit;
+        transition: border-color 0.2s;
+      }
+      #sapo-autofill-popup input[type="text"]:focus,
+      #sapo-autofill-popup input[type="email"]:focus,
+      #sapo-autofill-popup input[type="tel"]:focus {
+        outline: none;
+        border-color: #007AFF;
+      }
+      #sapo-autofill-popup .file-input-hidden {
+        display: none;
+      }
+      #sapo-autofill-popup .file-input-wrapper {
+        width: 100%;
+      }
+      #sapo-autofill-popup .file-input-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px dashed #ccc;
+        border-radius: 6px;
+        background: #f9f9f9;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      #sapo-autofill-popup .file-input-label:hover {
+        border-color: #007AFF;
+        background: #f0f8ff;
+      }
+      #sapo-autofill-popup .file-button {
+        display: inline-block;
+        padding: 4px 12px;
+        background: #007AFF;
+        color: white;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: background 0.2s;
+      }
+      #sapo-autofill-popup .file-input-label:hover .file-button {
+        background: #0051D5;
+      }
+      #sapo-autofill-popup .file-name {
+        flex: 1;
+        font-size: 12px;
+        color: #666;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      #sapo-autofill-popup .file-name.has-file {
+        color: #333;
+        font-weight: 500;
+      }
+      #sapo-autofill-popup .file-info {
+        display: block;
+        margin-top: 4px;
+        color: #666;
+        font-size: 11px;
+      }
+      #sapo-autofill-popup .button-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      #sapo-autofill-popup button {
+        flex: 1;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: inherit;
+      }
+      #sapo-autofill-popup .primary-btn {
+        background: #007AFF;
+        color: white;
+      }
+      #sapo-autofill-popup .primary-btn:hover {
+        background: #0051D5;
+      }
+      #sapo-autofill-popup .primary-btn:active {
+        transform: scale(0.98);
+      }
+      #sapo-autofill-popup .status-message {
+        margin-top: 12px;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        display: none;
+        animation: slideIn 0.3s ease;
+      }
+      #sapo-autofill-popup .status-message.success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      #sapo-autofill-popup .status-message.error {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      #sapo-autofill-popup .status-message.info {
+        background: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+      }
+      #sapo-autofill-popup .info-box {
+        margin-top: 16px;
+        padding: 12px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+        border-radius: 8px;
+        border: 1px solid #d0d7de;
+      }
+      #sapo-autofill-popup .info-box p {
+        margin-bottom: 8px;
+        font-size: 13px;
+        color: #1a1a1a;
+      }
+      #sapo-autofill-popup .info-box ul {
+        list-style: none;
+        margin-left: 0;
+        padding-left: 0;
+      }
+      #sapo-autofill-popup .info-box li {
+        padding: 4px 0;
+        font-size: 12px;
+        color: #555;
+        line-height: 1.5;
+      }
+      #sapo-autofill-popup::-webkit-scrollbar {
+        width: 8px;
+      }
+      #sapo-autofill-popup::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      #sapo-autofill-popup::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 4px;
+      }
+      #sapo-autofill-popup::-webkit-scrollbar-thumb:hover {
+        background: #999;
+      }
+    </style>
+    <div class="popup-container">
+      <div class="header">
+        <img src="${iconURL}" alt="SAPO Emprego Autofill" class="logo">
+        <h1>SAPO Emprego Autofill</h1>
+        <button class="close-btn" id="sapo-close-popup">&times;</button>
+      </div>
+      
+      <div class="form-section">
+        <form id="sapo-autofillForm">
+          <div class="form-group">
+            <label for="sapo-name">Full Name</label>
+            <input type="text" id="sapo-name" name="name" placeholder="Your Full Name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="sapo-email">Email</label>
+            <input type="email" id="sapo-email" name="email" placeholder="your.email@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="sapo-phone">Phone Number</label>
+            <input type="tel" id="sapo-phone" name="phone" placeholder="Your Phone Number" required>
+          </div>
+
+          <div class="form-group">
+            <label>Photo</label>
+            <div class="file-input-wrapper">
+              <input type="file" id="sapo-photo" name="photo" accept="image/*" class="file-input-hidden">
+              <label for="sapo-photo" class="file-input-label">
+                <span class="file-button">Choose File</span>
+                <span class="file-name" id="sapo-photoFileName">No file selected</span>
+              </label>
+            </div>
+            <small class="file-info">PNG, JPG, JPEG (optional if already saved)</small>
+          </div>
+
+          <div class="form-group">
+            <label>CV/Resume (PDF)</label>
+            <div class="file-input-wrapper">
+              <input type="file" id="sapo-cv" name="cv" accept="application/pdf" class="file-input-hidden">
+              <label for="sapo-cv" class="file-input-label">
+                <span class="file-button">Choose File</span>
+                <span class="file-name" id="sapo-cvFileName">No file selected</span>
+              </label>
+            </div>
+            <small class="file-info">PDF format (optional if already saved)</small>
+          </div>
+
+          <div class="button-group">
+            <button type="button" id="sapo-saveButton" class="primary-btn">
+              💾 Save Data
+            </button>
+          </div>
+          
+          <div class="info-box">
+            <p><strong>💡 How to use:</strong></p>
+            <ul>
+              <li>📝 <strong>Single click</strong> the extension icon to fill forms</li>
+              <li>✏️ <strong>Double click</strong> the extension icon to edit your data</li>
+            </ul>
+          </div>
+
+          <div id="sapo-statusMessage" class="status-message"></div>
+        </form>
+      </div>
+    </div>
+  `;
+  
+  overlay.appendChild(popupContainer);
+  document.body.appendChild(overlay);
+  
+  // Setup event handlers
+  setupPopupEventHandlers(overlay, popupContainer);
+  
+  // Load saved data
+  loadSavedDataIntoPopup();
+  
+  console.log('Popup overlay shown');
+}
+
+function setupPopupEventHandlers(overlay, popupContainer) {
+  // Close button
+  const closeBtn = popupContainer.querySelector('#sapo-close-popup');
+  closeBtn.addEventListener('click', () => {
+    overlay.remove();
+  });
+  
+  // Click outside to close
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      overlay.remove();
+    }
+  });
+  
+  // Save button
+  const saveBtn = popupContainer.querySelector('#sapo-saveButton');
+  saveBtn.addEventListener('click', () => savePopupFormData(overlay));
+  
+  // File input listeners
+  setupFileInputListener('sapo-photo', 'sapo-photoFileName');
+  setupFileInputListener('sapo-cv', 'sapo-cvFileName');
+}
+
+function setupFileInputListener(inputId, displayId) {
+  const input = document.getElementById(inputId);
+  const display = document.getElementById(displayId);
+  
+  if (input && display) {
+    input.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        display.textContent = file.name;
+        display.classList.add('has-file');
+      } else {
+        display.textContent = 'No file selected';
+        display.classList.remove('has-file');
+      }
+    });
+  }
+}
+
+async function loadSavedDataIntoPopup() {
+  try {
+    let data;
+    const runtimeAPI = typeof browser !== 'undefined' ? browser : chrome;
+    
+    if (typeof browser !== 'undefined' && browser.storage) {
+      data = await browser.storage.local.get(['formData', 'fileData']);
+    } else if (typeof chrome !== 'undefined' && chrome.storage) {
+      data = await new Promise((resolve) => {
+        chrome.storage.local.get(['formData', 'fileData'], resolve);
+      });
+    }
+    
+    if (data && data.formData) {
+      const nameInput = document.getElementById('sapo-name');
+      const emailInput = document.getElementById('sapo-email');
+      const phoneInput = document.getElementById('sapo-phone');
+      
+      if (nameInput) nameInput.value = data.formData.name || '';
+      if (emailInput) emailInput.value = data.formData.email || '';
+      if (phoneInput) phoneInput.value = data.formData.phone || '';
+    }
+    
+    // Update file displays if files are already saved
+    if (data && data.fileData) {
+      const photoDisplay = document.getElementById('sapo-photoFileName');
+      const cvDisplay = document.getElementById('sapo-cvFileName');
+      
+      if (photoDisplay && data.fileData.photo) {
+        photoDisplay.textContent = data.fileData.photo.name + ' (saved)';
+        photoDisplay.classList.add('has-file');
+      }
+      
+      if (cvDisplay && data.fileData.cv) {
+        cvDisplay.textContent = data.fileData.cv.name + ' (saved)';
+        cvDisplay.classList.add('has-file');
+      }
+    }
+  } catch (error) {
+    console.error('Error loading data into popup:', error);
+  }
+}
+
+function showPopupStatus(message, type = 'info') {
+  const statusEl = document.getElementById('sapo-statusMessage');
+  if (statusEl) {
+    statusEl.textContent = message;
+    statusEl.className = `status-message ${type}`;
+    statusEl.style.display = 'block';
+    
+    if (type === 'success') {
+      setTimeout(() => {
+        statusEl.style.display = 'none';
+      }, 3000);
+    }
+  }
+}
+
+function convertFileToBase64Popup(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = reader.result.split(',')[1];
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function savePopupFormData(overlay) {
+  const form = document.getElementById('sapo-autofillForm');
+  const formData = new FormData(form);
+  
+  const name = formData.get('name');
+  const email = formData.get('email');
+  const phone = formData.get('phone');
+  const photoFile = formData.get('photo');
+  const cvFile = formData.get('cv');
+  
+  if (!name || !email || !phone) {
+    showPopupStatus('Please fill in all text fields', 'error');
+    return;
+  }
+  
+  try {
+    showPopupStatus('Saving data...', 'info');
+    
+    const data = {
+      formData: { name, email, phone }
+    };
+    
+    // Only save files if they're selected
+    if (photoFile && photoFile.size > 0) {
+      const photoBase64 = await convertFileToBase64Popup(photoFile);
+      data.fileData = data.fileData || {};
+      data.fileData.photo = {
+        name: photoFile.name,
+        type: photoFile.type || 'image/png',
+        base64: photoBase64
+      };
+    }
+    
+    if (cvFile && cvFile.size > 0) {
+      const cvBase64 = await convertFileToBase64Popup(cvFile);
+      data.fileData = data.fileData || {};
+      data.fileData.cv = {
+        name: cvFile.name,
+        type: cvFile.type || 'application/pdf',
+        base64: cvBase64
+      };
+    }
+    
+    // Save to browser storage
+    if (typeof browser !== 'undefined' && browser.storage) {
+      await browser.storage.local.set(data);
+    } else if (typeof chrome !== 'undefined' && chrome.storage) {
+      await new Promise((resolve, reject) => {
+        chrome.storage.local.set(data, () => {
+          if (chrome.runtime.lastError) {
+            reject(chrome.runtime.lastError);
+          } else {
+            resolve();
+          }
+        });
+      });
+    }
+    
+    showPopupStatus('Data saved successfully!', 'success');
+    
+    // Close popup after a short delay
+    setTimeout(() => {
+      overlay.remove();
+    }, 1500);
+  } catch (error) {
+    console.error('Error saving data:', error);
+    showPopupStatus('Error saving data: ' + error.message, 'error');
+  }
+}
+
+})(); // End of IIFE to prevent duplicate variable declarations
 

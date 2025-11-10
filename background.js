@@ -61,32 +61,32 @@ async function fillFormWithSavedData(tab) {
 }
 
 // Function to open the popup
-async function openPopupForEditing() {
+async function openPopupForEditing(tab) {
   console.log('Opening popup for editing...');
   
   const runtimeAPI = typeof browser !== 'undefined' ? browser : chrome;
   
-  // For Safari, open popup in a new window
   try {
-    const popupURL = runtimeAPI.runtime.getURL('popup.html');
-    await runtimeAPI.windows.create({
-      url: popupURL,
-      type: 'popup',
-      width: 400,
-      height: 600
-    });
-    console.log('Popup window opened');
-    return;
+    // Send message to content script to show popup overlay on the page
+    if (tab && tab.id) {
+      if (typeof browser !== 'undefined' && browser.tabs) {
+        await browser.tabs.sendMessage(tab.id, { action: 'showPopupOverlay' });
+      } else if (typeof chrome !== 'undefined' && chrome.tabs) {
+        chrome.tabs.sendMessage(tab.id, { action: 'showPopupOverlay' });
+      }
+      console.log('Popup overlay message sent');
+      return;
+    }
   } catch (err) {
-    console.error('Error opening popup window:', err);
+    console.error('Error showing popup overlay:', err);
     
     // Fallback: show notification
-    console.log('Cannot open popup, showing notification');
+    console.log('Cannot show popup, showing notification');
     const notificationOptions = {
       type: 'basic',
       iconUrl: runtimeAPI.runtime.getURL('icons/icon-48.png'),
       title: 'SAPO Emprego Autofill',
-      message: 'Please right-click the extension icon and select "Manage Extension"'
+      message: 'Please refresh the page and try again'
     };
     
     if (runtimeAPI.notifications) {
@@ -118,7 +118,7 @@ if (typeof browser !== 'undefined' && browser.action) {
     if (timeSinceLastClick < DOUBLE_CLICK_DELAY) {
       console.log('Double-click detected - opening popup');
       lastClickTime = 0; // Reset to avoid triple-click triggering
-      await openPopupForEditing();
+      await openPopupForEditing(tab);
     } else {
       // This might be a single click, wait to see if another click follows
       console.log('Potential single-click - waiting...');
@@ -148,7 +148,7 @@ if (typeof browser !== 'undefined' && browser.action) {
     if (timeSinceLastClick < DOUBLE_CLICK_DELAY) {
       console.log('Double-click detected - opening popup');
       lastClickTime = 0; // Reset to avoid triple-click triggering
-      openPopupForEditing();
+      openPopupForEditing(tab);
     } else {
       // This might be a single click, wait to see if another click follows
       console.log('Potential single-click - waiting...');
@@ -167,7 +167,8 @@ if (typeof browser !== 'undefined' && browser.runtime) {
   browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === 'openPopup') {
       console.log('Received openPopup message from content script');
-      openPopupForEditing();
+      // Use sender.tab which contains the tab info
+      openPopupForEditing(sender.tab);
       return true;
     }
   });
@@ -175,7 +176,8 @@ if (typeof browser !== 'undefined' && browser.runtime) {
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === 'openPopup') {
       console.log('Received openPopup message from content script');
-      openPopupForEditing();
+      // Use sender.tab which contains the tab info
+      openPopupForEditing(sender.tab);
       return true;
     }
   });
