@@ -33,8 +33,12 @@ async function saveFormData() {
     const name = formData.get('name');
     const email = formData.get('email');
     const phone = formData.get('phone');
-    const photoFile = formData.get('photo');
-    const cvFile = formData.get('cv');
+    
+    // Check file inputs directly to see if new files were selected
+    const photoInput = document.getElementById('photo');
+    const cvInput = document.getElementById('cv');
+    const photoFile = photoInput.files && photoInput.files.length > 0 ? photoInput.files[0] : null;
+    const cvFile = cvInput.files && cvInput.files.length > 0 ? cvInput.files[0] : null;
     
     if (!name || !email || !phone) {
         showStatus('Please fill in all text fields', 'error');
@@ -44,36 +48,84 @@ async function saveFormData() {
     try {
         showStatus('Saving data...', 'info');
         
-        const data = {
-            formData: { name, email, phone }
-        };
+        // Load existing data first to preserve existing files
+        let existingData = {};
+        if (typeof browser !== 'undefined' && browser.storage) {
+            existingData = await browser.storage.local.get(['formData', 'fileData']);
+        } else if (typeof chrome !== 'undefined' && chrome.storage) {
+            existingData = await new Promise((resolve) => {
+                chrome.storage.local.get(['formData', 'fileData'], resolve);
+            });
+        }
         
-        // Only save files if they're selected
+        console.log('Existing data loaded:', existingData);
+        console.log('Existing fileData:', existingData.fileData);
+        console.log('Existing fileData keys:', existingData.fileData ? Object.keys(existingData.fileData) : 'none');
+        
+        // Start with existing fileData - copy the entire object to preserve all files
+        const fileData = existingData.fileData ? JSON.parse(JSON.stringify(existingData.fileData)) : {};
+        
+        console.log('Copied fileData before updates:', Object.keys(fileData));
+        console.log('Has existing photo:', !!fileData.photo);
+        console.log('Has existing CV:', !!fileData.cv);
+        
+        // Only update files if new ones are selected (preserve existing ones if not)
         if (photoFile && photoFile.size > 0) {
+            console.log('Updating photo:', photoFile.name);
             const photoBase64 = await convertFileToBase64(photoFile);
-            data.fileData = data.fileData || {};
-            data.fileData.photo = {
+            fileData.photo = {
                 name: photoFile.name,
                 type: photoFile.type || 'image/png',
                 base64: photoBase64
             };
+        } else {
+            console.log('No new photo selected, keeping existing photo:', !!fileData.photo);
         }
         
         if (cvFile && cvFile.size > 0) {
+            console.log('Updating CV:', cvFile.name);
             const cvBase64 = await convertFileToBase64(cvFile);
-            data.fileData = data.fileData || {};
-            data.fileData.cv = {
+            fileData.cv = {
                 name: cvFile.name,
                 type: cvFile.type || 'application/pdf',
                 base64: cvBase64
             };
+        } else {
+            console.log('No new CV selected, keeping existing CV:', !!fileData.cv);
         }
         
-        // Save to browser storage
+        console.log('Final fileData keys:', Object.keys(fileData));
+        console.log('Final fileData.photo exists:', !!fileData.photo);
+        console.log('Final fileData.cv exists:', !!fileData.cv);
+        
+        const data = {
+            formData: { name, email, phone },
+            fileData: fileData
+        };
+        
+        // Save to browser storage - explicitly set both keys to ensure we preserve everything
         if (typeof browser !== 'undefined' && browser.storage) {
-            await browser.storage.local.set(data);
+            // For Firefox, set each key separately to ensure proper merging
+            await browser.storage.local.set({
+                formData: data.formData,
+                fileData: data.fileData
+            });
         } else if (typeof chrome !== 'undefined' && chrome.storage) {
-            await chrome.storage.local.set(data);
+            await new Promise((resolve, reject) => {
+                // Explicitly set both keys to ensure we preserve everything
+                chrome.storage.local.set({
+                    formData: data.formData,
+                    fileData: data.fileData
+                }, () => {
+                    if (chrome.runtime.lastError) {
+                        console.error('Storage error:', chrome.runtime.lastError);
+                        reject(new Error(chrome.runtime.lastError.message));
+                    } else {
+                        console.log('Data saved successfully to storage');
+                        resolve();
+                    }
+                });
+            });
         }
         
         showStatus('Data saved successfully!', 'success');
