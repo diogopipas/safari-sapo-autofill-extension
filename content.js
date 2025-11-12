@@ -1034,7 +1034,14 @@ function showPopupOverlay() {
   
   // Get the extension URL
   const runtimeAPI = typeof browser !== 'undefined' ? browser : chrome;
-  const iconURL = runtimeAPI.runtime.getURL('icons/icon-48.png');
+  let iconURL = '';
+  try {
+    iconURL = runtimeAPI.runtime.getURL('icons/icon-48.png');
+  } catch (e) {
+    console.warn('Could not load icon URL:', e);
+    // Use a data URL or empty string as fallback
+    iconURL = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjQiIGZpbGw9IiMwMDdBRkYiLz48L3N2Zz4=';
+  }
   
   // Create overlay backdrop
   const overlay = document.createElement('div');
@@ -1515,15 +1522,21 @@ async function savePopupFormData(overlay) {
   try {
     showPopupStatus('Saving data...', 'info');
     
-    const data = {
-      formData: { name, email, phone }
-    };
-    
+    let existingData = {};
+    if (typeof browser !== 'undefined' && browser.storage) {
+      existingData = await browser.storage.local.get(['fileData']);
+    } else if (typeof chrome !== 'undefined' && chrome.storage) {
+      existingData = await new Promise((resolve) => {
+        chrome.storage.local.get(['fileData'], resolve);
+      });
+    }
+
+    const mergedFileData = { ...(existingData.fileData || {}) };
+
     // Only save files if they're selected
     if (photoFile && photoFile.size > 0) {
       const photoBase64 = await convertFileToBase64Popup(photoFile);
-      data.fileData = data.fileData || {};
-      data.fileData.photo = {
+      mergedFileData.photo = {
         name: photoFile.name,
         type: photoFile.type || 'image/png',
         base64: photoBase64
@@ -1532,12 +1545,19 @@ async function savePopupFormData(overlay) {
     
     if (cvFile && cvFile.size > 0) {
       const cvBase64 = await convertFileToBase64Popup(cvFile);
-      data.fileData = data.fileData || {};
-      data.fileData.cv = {
+      mergedFileData.cv = {
         name: cvFile.name,
         type: cvFile.type || 'application/pdf',
         base64: cvBase64
       };
+    }
+
+    const data = {
+      formData: { name, email, phone }
+    };
+
+    if (Object.keys(mergedFileData).length > 0) {
+      data.fileData = mergedFileData;
     }
     
     // Save to browser storage
