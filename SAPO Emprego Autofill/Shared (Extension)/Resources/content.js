@@ -32,57 +32,111 @@
   window.__SAPO_AUTOFILL_LAST_CLICK_TIME__ = 0;
   window.__SAPO_AUTOFILL_DOUBLE_CLICK_DELAY__ = 300; // ms
 
-// Add click listener to detect form interactions
-function initializeClickListener() {
-  // Wait for page to load
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupFormClickListener);
-  } else {
-    setupFormClickListener();
-  }
-}
-
-function setupFormClickListener() {
-  console.log('Setting up click listeners...');
-  
-  // Find the form container
-  const formSelectors = [
+  const FORM_SELECTORS = [
+    'form[action*="candidatura"]',
     'form',
     '[class*="form"]',
     '[id*="form"]',
     '[class*="candidatura"]'
   ];
-  
-  let formElement = null;
-  for (const selector of formSelectors) {
-    formElement = document.querySelector(selector);
-    if (formElement) {
-      console.log('✓ Found form element:', formElement);
-      console.log('  Tag:', formElement.tagName, 'Class:', formElement.className);
-      break;
+  let activeFormElement = null;
+  let clickListenersAttached = false;
+
+  function detectFormElement() {
+    for (const selector of FORM_SELECTORS) {
+      const candidate = document.querySelector(selector);
+      if (candidate) {
+        return candidate;
+      }
     }
+    return document.body || null;
   }
-  
-  if (!formElement) {
-    console.log('⚠ No form found, attaching to document body');
-    formElement = document.body;
+
+  function ensureActiveFormElement(options = {}) {
+    const { forceLog = false, reason } = options;
+    const resolvedElement = detectFormElement();
+
+    if (!resolvedElement) {
+      if (forceLog) {
+        console.warn('SAPO Autofill: document.body not ready yet, cannot attach click listeners.');
+      }
+      return null;
+    }
+
+    const changed = resolvedElement !== activeFormElement;
+    activeFormElement = resolvedElement;
+
+    if (changed || forceLog) {
+      const prefix = reason ? `${reason}: ` : '';
+      if (resolvedElement === document.body) {
+        console.log(`${prefix}⚠ No dedicated form found, monitoring entire document body`);
+      } else {
+        console.log(`${prefix}✓ Active form detected:`, resolvedElement);
+        console.log('  Tag:', resolvedElement.tagName, 'Class:', resolvedElement.className);
+      }
+    }
+
+    return activeFormElement;
   }
+
+  function isClickWithinActiveForm(target) {
+    const form = ensureActiveFormElement();
+    if (!form) {
+      return false;
+    }
+
+    if (form === document.body) {
+      return document.body.contains(target);
+    }
+
+    return form.contains(target);
+  }
+
+  function logRawClickEvent(event) {
+    if (!isClickWithinActiveForm(event.target)) {
+      return;
+    }
+    console.log('🔵 RAW CLICK EVENT detected on:', event.target.tagName, event.target);
+  }
+
+  function logRawDblClickEvent(event) {
+    if (!isClickWithinActiveForm(event.target)) {
+      return;
+    }
+    console.log('🔵 RAW DBLCLICK EVENT detected on:', event.target.tagName, event.target);
+  }
+
+// Add click listener to detect form interactions
+function initializeClickListener() {
+  // Wait for page to load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupFormClickListener, { once: true });
+  } else {
+    setupFormClickListener();
+  }
+
+  window.addEventListener('pageshow', () => {
+    ensureActiveFormElement({ forceLog: true, reason: 'Page became visible again' });
+  });
+}
+
+function setupFormClickListener() {
+  console.log('Setting up click listeners...');
   
-  // Add both click and double-click listeners (using capture phase)
-  formElement.addEventListener('click', handleFormClick, true);
-  formElement.addEventListener('dblclick', handleFormDoubleClick, true);
+  ensureActiveFormElement({ forceLog: true, reason: 'Initial form detection' });
   
-  console.log('✓ Click listeners attached successfully to:', formElement.tagName);
-  console.log('  Try clicking anywhere on the form to test!');
-  
-  // Add a test listener to verify events are firing
-  formElement.addEventListener('click', function testClick(e) {
-    console.log('🔵 RAW CLICK EVENT detected on:', e.target.tagName, e.target);
-  }, true);
-  
-  formElement.addEventListener('dblclick', function testDblClick(e) {
-    console.log('🔵 RAW DBLCLICK EVENT detected on:', e.target.tagName, e.target);
-  }, true);
+  if (!clickListenersAttached) {
+    // Add both click and double-click listeners (using capture phase)
+    document.addEventListener('click', handleFormClick, true);
+    document.addEventListener('dblclick', handleFormDoubleClick, true);
+    document.addEventListener('click', logRawClickEvent, true);
+    document.addEventListener('dblclick', logRawDblClickEvent, true);
+    clickListenersAttached = true;
+    
+    console.log('✓ Click listeners attached (document capture mode)');
+    console.log('  Listeners survive dynamic form reloads automatically.');
+    console.log('  Try clicking within the form to test!');
+  }
 }
 
 function shouldIgnoreClick(target) {
@@ -105,6 +159,11 @@ function shouldIgnoreClick(target) {
 
 async function handleFormClick(event) {
   console.log('handleFormClick triggered', event.target);
+
+  if (!isClickWithinActiveForm(event.target)) {
+    console.log('Click ignored - outside tracked form area');
+    return;
+  }
   
   // Ignore clicks on interactive elements
   if (shouldIgnoreClick(event.target)) {
@@ -153,6 +212,11 @@ async function handleFormClick(event) {
 
 function handleFormDoubleClick(event) {
   console.log('handleFormDoubleClick triggered', event.target);
+
+  if (!isClickWithinActiveForm(event.target)) {
+    console.log('Double-click ignored - outside tracked form area');
+    return;
+  }
   
   // Ignore clicks on interactive elements
   if (shouldIgnoreClick(event.target)) {

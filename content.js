@@ -32,57 +32,226 @@
   window.__SAPO_AUTOFILL_LAST_CLICK_TIME__ = 0;
   window.__SAPO_AUTOFILL_DOUBLE_CLICK_DELAY__ = 300; // ms
 
+  const FORM_SELECTORS = [
+    'form[action*="candidatura"]',
+    'form[action*="apply"]',
+    'form[action*="submit"]',
+    'form',
+    '[data-form-type*="candidatura"]',
+    '[class*="candidatura"]',
+    '[id*="candidatura"]',
+    '[class*="application"]',
+    '[id*="application"]',
+    '[class*="form"]',
+    '[id*="form"]'
+  ];
+  let trackedFormElements = [];
+  let clickListenersAttached = false;
+  let formMutationObserver = null;
+  let formObserverScheduled = false;
+
+  function describeTrackedElement(element) {
+    if (!element || !(element instanceof Element)) {
+      return '[unknown element]';
+    }
+    if (element === document.body) {
+      return '<body>';
+    }
+    const parts = [element.tagName.toLowerCase()];
+    if (element.id) {
+      parts.push(`#${element.id}`);
+    }
+    if (element.className) {
+      const classTokens = element.className.toString().trim().split(/\s+/).filter(Boolean);
+      if (classTokens.length) {
+        parts.push('.' + classTokens.slice(0, 3).join('.'));
+        if (classTokens.length > 3) {
+          parts.push('.…');
+        }
+      }
+    }
+    return parts.join('');
+  }
+
+  function scoreFormElement(element) {
+    if (!(element instanceof Element)) {
+      return 0;
+    }
+    let score = 0;
+    const className = (element.className || '').toString().toLowerCase();
+    const id = (element.id || '').toString().toLowerCase();
+    const textContent = (element.textContent || '').toLowerCase();
+    
+    if (element.tagName === 'FORM') {
+      score += 2;
+    }
+    if (className.includes('candidatura') || id.includes('candidatura')) {
+      score += 6;
+    }
+    if (className.includes('application') || id.includes('application')) {
+      score += 4;
+    }
+    if (textContent.includes('candidatura')) {
+      score += 2;
+    }
+
+    const inputs = Array.from(element.querySelectorAll('input'));
+    if (inputs.some(input => input.type === 'file')) {
+      score += 4;
+    }
+    if (inputs.some(input => input.type === 'email')) {
+      score += 1;
+    }
+    if (inputs.some(input => {
+      const fingerprint = `${input.name || ''} ${input.id || ''} ${input.placeholder || ''}`.toLowerCase();
+      return fingerprint.includes('telefone') ||
+             fingerprint.includes('telemovel') ||
+             fingerprint.includes('contacto') ||
+             fingerprint.includes('phone');
+    })) {
+      score += 2;
+    }
+    if (element.querySelector('textarea')) {
+      score += 1;
+    }
+
+    return score;
+  }
+
+  function collectFormCandidates() {
+    const seen = new Set();
+    const candidates = [];
+    
+    for (const selector of FORM_SELECTORS) {
+      const matches = document.querySelectorAll(selector);
+      matches.forEach(element => {
+        if (!(element instanceof Element)) {
+          return;
+        }
+        if (seen.has(element)) {
+          return;
+        }
+        seen.add(element);
+        candidates.push({ element, score: scoreFormElement(element) });
+      });
+    }
+
+    candidates.sort((a, b) => b.score - a.score);
+    return candidates.map(candidate => candidate.element);
+  }
+
+  function ensureTrackedFormElements(options = {}) {
+    const { forceLog = false, reason } = options;
+    const previous = trackedFormElements;
+    const candidates = collectFormCandidates();
+    const next = candidates.length ? candidates : (document.body ? [document.body] : []);
+    
+    const changed = next.length !== previous.length ||
+      next.some((element, index) => element !== previous[index]);
+
+    if ((changed || forceLog) && next.length) {
+      const prefix = reason ? `${reason}: ` : '';
+      if (next.length === 1 && next[0] === document.body) {
+        console.log(`${prefix}No specific form detected - falling back to document.body`);
+      } else {
+        console.log(`${prefix}Tracking ${next.length} potential form container(s):`);
+        next.slice(0, 5).forEach((element, index) => {
+          console.log(`  [${index + 1}] ${describeTrackedElement(element)}`);
+        });
+        if (next.length > 5) {
+          console.log(`  ... ${next.length - 5} more`);
+        }
+      }
+    }
+
+    trackedFormElements = next;
+    return trackedFormElements;
+  }
+
+  function isClickWithinTrackedForms(target) {
+    if (!(target instanceof Node)) {
+      return false;
+    }
+    const tracked = ensureTrackedFormElements();
+    if (!tracked.length) {
+      return false;
+    }
+    return tracked.some(element => element.contains(target));
+  }
+
+  function logRawClickEvent(event) {
+    if (!isClickWithinTrackedForms(event.target)) {
+      return;
+    }
+    console.log('🔵 RAW CLICK EVENT detected on:', event.target.tagName, event.target);
+  }
+
+  function logRawDblClickEvent(event) {
+    if (!isClickWithinTrackedForms(event.target)) {
+      return;
+    }
+    console.log('🔵 RAW DBLCLICK EVENT detected on:', event.target.tagName, event.target);
+  }
+
+  function scheduleTrackedFormRefresh(reason) {
+    if (formObserverScheduled) {
+      return;
+    }
+    formObserverScheduled = true;
+    requestAnimationFrame(() => {
+      formObserverScheduled = false;
+      ensureTrackedFormElements({ forceLog: true, reason });
+    });
+  }
+
+  function startFormMutationObserver() {
+    if (formMutationObserver || !document.body) {
+      return;
+    }
+    formMutationObserver = new MutationObserver((mutations) => {
+      const relevantChange = mutations.some(mutation => mutation.addedNodes.length || mutation.removedNodes.length);
+      if (relevantChange) {
+        scheduleTrackedFormRefresh('Form DOM updated');
+      }
+    });
+    formMutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
 // Add click listener to detect form interactions
 function initializeClickListener() {
   // Wait for page to load
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupFormClickListener);
+    document.addEventListener('DOMContentLoaded', setupFormClickListener, { once: true });
   } else {
     setupFormClickListener();
   }
+
+  window.addEventListener('pageshow', () => {
+    ensureTrackedFormElements({ forceLog: true, reason: 'Page became visible again' });
+  });
 }
 
 function setupFormClickListener() {
   console.log('Setting up click listeners...');
   
-  // Find the form container
-  const formSelectors = [
-    'form',
-    '[class*="form"]',
-    '[id*="form"]',
-    '[class*="candidatura"]'
-  ];
+  ensureTrackedFormElements({ forceLog: true, reason: 'Initial form detection' });
+  startFormMutationObserver();
   
-  let formElement = null;
-  for (const selector of formSelectors) {
-    formElement = document.querySelector(selector);
-    if (formElement) {
-      console.log('✓ Found form element:', formElement);
-      console.log('  Tag:', formElement.tagName, 'Class:', formElement.className);
-      break;
-    }
+  if (!clickListenersAttached) {
+    // Add both click and double-click listeners (using capture phase)
+    document.addEventListener('click', handleFormClick, true);
+    document.addEventListener('dblclick', handleFormDoubleClick, true);
+    document.addEventListener('click', logRawClickEvent, true);
+    document.addEventListener('dblclick', logRawDblClickEvent, true);
+    clickListenersAttached = true;
+    
+    console.log('✓ Click listeners attached (document capture mode)');
+    console.log('  Listeners survive dynamic form reloads automatically.');
+    console.log('  Try clicking within the form to test!');
   }
-  
-  if (!formElement) {
-    console.log('⚠ No form found, attaching to document body');
-    formElement = document.body;
-  }
-  
-  // Add both click and double-click listeners (using capture phase)
-  formElement.addEventListener('click', handleFormClick, true);
-  formElement.addEventListener('dblclick', handleFormDoubleClick, true);
-  
-  console.log('✓ Click listeners attached successfully to:', formElement.tagName);
-  console.log('  Try clicking anywhere on the form to test!');
-  
-  // Add a test listener to verify events are firing
-  formElement.addEventListener('click', function testClick(e) {
-    console.log('🔵 RAW CLICK EVENT detected on:', e.target.tagName, e.target);
-  }, true);
-  
-  formElement.addEventListener('dblclick', function testDblClick(e) {
-    console.log('🔵 RAW DBLCLICK EVENT detected on:', e.target.tagName, e.target);
-  }, true);
 }
 
 function shouldIgnoreClick(target) {
@@ -105,6 +274,11 @@ function shouldIgnoreClick(target) {
 
 async function handleFormClick(event) {
   console.log('handleFormClick triggered', event.target);
+
+  if (!isClickWithinTrackedForms(event.target)) {
+    console.log('Click ignored - outside tracked form area');
+    return;
+  }
   
   // Ignore clicks on interactive elements
   if (shouldIgnoreClick(event.target)) {
@@ -153,6 +327,11 @@ async function handleFormClick(event) {
 
 function handleFormDoubleClick(event) {
   console.log('handleFormDoubleClick triggered', event.target);
+
+  if (!isClickWithinTrackedForms(event.target)) {
+    console.log('Double-click ignored - outside tracked form area');
+    return;
+  }
   
   // Ignore clicks on interactive elements
   if (shouldIgnoreClick(event.target)) {
