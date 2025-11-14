@@ -182,3 +182,4 @@ if (typeof browser !== 'undefined' && browser.runtime) {
     }
   });
 }
+

@@ -197,6 +197,37 @@ function updateFileName(inputId, displayId) {
 
 // Initialize popup
 document.addEventListener('DOMContentLoaded', () => {
+    // Set the logo icon using chrome.runtime.getURL for proper resource loading
+    const logoImg = document.getElementById('logo');
+    if (logoImg) {
+        const runtime = typeof chrome !== 'undefined' && chrome.runtime
+            ? chrome.runtime
+            : (typeof browser !== 'undefined' && browser.runtime ? browser.runtime : null);
+
+        let iconUrl = 'icons/icon-48.png';
+
+        if (runtime && typeof runtime.getURL === 'function') {
+            try {
+                iconUrl = runtime.getURL('icons/icon-48.png');
+            } catch (err) {
+                console.error('Failed to build icon URL with runtime.getURL:', err);
+            }
+        } else {
+            console.warn('runtime.getURL not available, falling back to relative path for logo icon.');
+        }
+
+        console.log('Setting popup logo src to:', iconUrl);
+        logoImg.src = iconUrl;
+
+        logoImg.addEventListener('error', () => {
+            console.error('Popup logo failed to load from:', logoImg.src);
+        });
+
+        logoImg.addEventListener('load', () => {
+            console.log('Popup logo loaded successfully from:', logoImg.src);
+        });
+    }
+    
     // Load saved data on startup
     loadSavedData();
     
